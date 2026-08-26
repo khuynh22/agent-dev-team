@@ -18,7 +18,5 @@
     "firmware",
     "sre"
   ],
-  "commands": "./.claude/commands",
-  "agents": "./agents",
-  "skills": "./skills"
+  "commands": ["./.claude/commands/"]
 }

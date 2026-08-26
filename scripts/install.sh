@@ -64,9 +64,15 @@ install_plugin() {
     exit 1
   }
   step "Registering marketplace from $REPO_ROOT"
-  claude plugin marketplace add "$REPO_ROOT"
+  claude plugin marketplace add "$REPO_ROOT" || {
+    echo "claude plugin marketplace add failed. See the output above." >&2
+    exit 1
+  }
   step "Installing ${PLUGIN_NAME}@${PLUGIN_NAME}"
-  claude plugin install "${PLUGIN_NAME}@${PLUGIN_NAME}"
+  claude plugin install "${PLUGIN_NAME}@${PLUGIN_NAME}" || {
+    echo "claude plugin install failed. See the output above." >&2
+    exit 1
+  }
   ok "Plugin installed. Start a new Claude Code session to load it."
   printf '\n  Try:  /agent-dev-team:team  add rate limiting to the upload endpoint\n'
 }

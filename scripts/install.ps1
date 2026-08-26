@@ -79,9 +79,15 @@ function Install-Plugin {
 
     Write-Step "Registering marketplace from $RepoRoot"
     & claude plugin marketplace add $RepoRoot 2>&1 | Out-Host
+    if ($LASTEXITCODE -ne 0) {
+        throw "claude plugin marketplace add failed (exit $LASTEXITCODE). See the output above."
+    }
 
     Write-Step "Installing $PluginName@$PluginName"
     & claude plugin install "$PluginName@$PluginName" 2>&1 | Out-Host
+    if ($LASTEXITCODE -ne 0) {
+        throw "claude plugin install failed (exit $LASTEXITCODE). See the output above."
+    }
 
     Write-Ok 'Plugin installed. Start a new Claude Code session to load it.'
     Write-Host ''

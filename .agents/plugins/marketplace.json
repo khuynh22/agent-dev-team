@@ -9,9 +9,7 @@
       "source": "./",
       "version": "0.1.0",
       "description": "17 role agents across four tiers, 20 portable workflow skills, and an escalation protocol that keeps work at the right level.",
-      "license": "MIT",
-      "commands": "./commands",
-      "skills": "./skills"
+      "license": "MIT"
     }
   ]
 }

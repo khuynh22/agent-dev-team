@@ -3,8 +3,5 @@
   "version": "0.1.0",
   "description": "A tiered team of engineering agents and portable workflow skills for AI coding tools.",
   "license": "MIT",
-  "homepage": "https://github.com/OWNER/agent-dev-team",
-  "commands": "./commands",
-  "skills": "./skills",
-  "agents": "./agents"
+  "homepage": "https://github.com/OWNER/agent-dev-team"
 }

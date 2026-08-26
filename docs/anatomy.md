@@ -108,6 +108,22 @@ talk itself past the ceiling, not less.
 | Ambiguity, review, subsystems | `opus` / `high` |
 | Arbitration, security, incidents, bring-up | `opus` / `xhigh` or `max` |
 
+## Plugin manifest
+
+`.claude-plugin/plugin.json` sets only `commands`, pointing at `./.claude/commands/`,
+because the repository's default `commands/` directory holds the generated TOML shims for
+other tools.
+
+`agents` and `skills` are deliberately **omitted**. Two rules make that the right choice:
+
+- `agents` and `commands` **replace** their default directory rather than adding to it,
+  while `skills` adds to it.
+- `agents` accepts **file paths only**. Pointing it at a directory fails installation with
+  `Validation errors: agents: Invalid input` — which is not obvious from the message.
+
+Omitting `agents` lets Claude Code scan `agents/` normally, which is what we want.
+`scripts/validate.js` checks for this, since the failure only surfaces at install time.
+
 ## Reference
 
 `references/*.md` are checklists loaded on demand, cited from a skill or agent body as

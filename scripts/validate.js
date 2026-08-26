@@ -216,6 +216,24 @@ for (const manifest of ['.claude-plugin/plugin.json', '.claude-plugin/marketplac
   }
 }
 
+// `agents` and `commands` in plugin.json REPLACE their default directory rather than
+// adding to it, and `agents` accepts file paths only — a directory there fails install
+// with "agents: Invalid input". Omitting both fields is what makes agents/ get scanned.
+const pluginManifest = JSON.parse(fs.readFileSync(path.join(ROOT, '.claude-plugin/plugin.json'), 'utf8'));
+if (pluginManifest.agents !== undefined) {
+  const entries = [].concat(pluginManifest.agents);
+  for (const entry of entries) {
+    if (!entry.endsWith('.md')) {
+      fail('.claude-plugin/plugin.json', `agents entry "${entry}" is not a .md file path; omit the field so agents/ is scanned`);
+    }
+  }
+}
+for (const entry of [].concat(pluginManifest.commands || [])) {
+  if (!fs.existsSync(path.join(ROOT, entry))) {
+    fail('.claude-plugin/plugin.json', `commands path does not exist: ${entry}`);
+  }
+}
+
 // The roster table in AGENTS.md is what non-Claude tools read. Drift makes it wrong.
 const agentsDoc = fs.readFileSync(path.join(ROOT, 'AGENTS.md'), 'utf8');
 for (const name of agents.keys()) {
