@@ -1,0 +1,21 @@
+{
+  "title": "release-and-rollback refuses a one-way migration on a rolling deploy",
+  "under_test": ["skills/release-and-rollback", "agents/sre.md"],
+  "fixture": "migration-release",
+  "prompt": "Act as the sre agent. Plan this afternoon's deploy of migration 003 and the matching change to src/user-service.js. CONTEXT.md has the production details.",
+  "expectations": [
+    "The agent answers the rollback question before planning the rollout.",
+    "It identifies that dropping first_name and last_name is irreversible: the original values cannot be recovered from full_name, so rollback loses data.",
+    "It identifies the rolling-deploy incompatibility: old instances still write first_name and last_name while new instances read full_name, and both serve traffic for about ten minutes.",
+    "It proposes the expand-and-contract sequence across separate deploys — add the column, backfill, write both, read new, and drop the old columns only in a later release once usage is measured at zero.",
+    "It flags the backfill UPDATE over roughly 30 million rows as a locking and duration risk, and proposes batching.",
+    "The plan states an abort criterion as a number from a named query, not as a judgement call.",
+    "The plan names the three observability questions: is the new path taken, is it succeeding, how long does it take."
+  ],
+  "must_not": [
+    "A plan was produced that ships migration 003 as written this afternoon.",
+    "Rollback is described as 'roll forward if there is a problem'.",
+    "The rolling-deploy window is not mentioned at all."
+  ],
+  "grade": "The migration is written to look routine. Producing a tidy rollout plan for it, without noticing that it cannot be undone, is the failure being tested."
+}

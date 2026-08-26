@@ -1,0 +1,443 @@
+{
+  "$schema": "../README.md#routing-schema",
+  "description": "Tier 1 routing evals. Each positive prompt must rank its owner within top_k; each negative must be won by the stated owner instead.",
+  "groups": [
+    {
+      "kind": "skill",
+      "cases": [
+        {
+          "owner": "using-agent-dev-team",
+          "top_k": 3,
+          "positive": [
+            "which agent and workflow should handle this request",
+            "route this work to the right team member and tier",
+            "how much process does this task deserve"
+          ],
+          "negative": [
+            { "prompt": "hand this work up a tier with a handoff packet", "owner": "team-escalation" }
+          ]
+        },
+        {
+          "owner": "team-escalation",
+          "top_k": 3,
+          "positive": [
+            "this task exceeds my ceiling, hand it up with a handoff packet",
+            "the brief is too vague to execute, escalate it",
+            "delegate this work down with a proper brief"
+          ],
+          "negative": [
+            { "prompt": "which team member should own this request", "owner": "using-agent-dev-team" }
+          ]
+        },
+        {
+          "owner": "requirements-interview",
+          "top_k": 3,
+          "positive": [
+            "the request is vague, ask me questions until you know what I need",
+            "nobody has said what done means for this feature",
+            "interview me about this idea before we build anything"
+          ],
+          "negative": [
+            { "prompt": "write the specification document from these requirements", "owner": "spec-writing" }
+          ]
+        },
+        {
+          "owner": "spec-writing",
+          "top_k": 3,
+          "positive": [
+            "write a specification an implementer can build from without asking me",
+            "turn these requirements into a written spec document",
+            "review this spec for gaps and contradictions"
+          ],
+          "negative": [
+            { "prompt": "split this spec into ordered tasks with owners", "owner": "work-breakdown" }
+          ]
+        },
+        {
+          "owner": "work-breakdown",
+          "top_k": 3,
+          "positive": [
+            "break this spec into ordered tasks each with a definition of done",
+            "split this work across agents and sequence it",
+            "this task is too large to verify in one step, decompose it"
+          ],
+          "negative": [
+            { "prompt": "record this technology choice with its trade-offs", "owner": "architecture-decision" }
+          ]
+        },
+        {
+          "owner": "architecture-decision",
+          "top_k": 3,
+          "positive": [
+            "record this technology choice as an ADR with trade-offs and consequences",
+            "we are choosing between two designs, document the decision",
+            "review this proposed design and its trade-offs"
+          ],
+          "negative": [
+            { "prompt": "design the endpoint shape and its error contract", "owner": "api-design" }
+          ]
+        },
+        {
+          "owner": "api-design",
+          "top_k": 3,
+          "positive": [
+            "design this endpoint signature and its error contract for callers",
+            "is this a breaking change to the public interface and how do we version it",
+            "design the schema and pagination for this public api"
+          ],
+          "negative": [
+            { "prompt": "record why we picked this queue over the other one", "owner": "architecture-decision" }
+          ]
+        },
+        {
+          "owner": "tdd-loop",
+          "top_k": 3,
+          "positive": [
+            "write the failing test first then make it pass",
+            "implement this feature test first with red green refactor",
+            "add a regression test that reproduces the bug before fixing it"
+          ],
+          "negative": [
+            { "prompt": "the suite is flaky and intermittently red, diagnose it", "owner": "systematic-debugging" }
+          ]
+        },
+        {
+          "owner": "incremental-delivery",
+          "top_k": 3,
+          "positive": [
+            "work through this task list one task at a time with a commit each",
+            "execute the plan with checkpoints instead of one huge change",
+            "keep each commit atomic and verified as you go"
+          ],
+          "negative": [
+            { "prompt": "write the failing test before the implementation", "owner": "tdd-loop" }
+          ]
+        },
+        {
+          "owner": "frontend-build",
+          "top_k": 3,
+          "positive": [
+            "build this component with empty loading and error states",
+            "implement this form with validation and keyboard support",
+            "this page layout breaks on a narrow viewport, rebuild it"
+          ],
+          "negative": [
+            { "prompt": "load the page in a browser and confirm it renders", "owner": "browser-verification" }
+          ]
+        },
+        {
+          "owner": "firmware-build",
+          "top_k": 3,
+          "positive": [
+            "write this rtos task without dynamic allocation and check the stack budget",
+            "implement this mcu peripheral driver behind a hal boundary",
+            "the interrupt handler needs to stay bounded on this microcontroller"
+          ],
+          "negative": [
+            { "prompt": "profile the p95 latency and cut it under budget", "owner": "performance-pass" }
+          ]
+        },
+        {
+          "owner": "systematic-debugging",
+          "top_k": 3,
+          "positive": [
+            "this test fails intermittently and I cannot work out why",
+            "find the actual cause of this crash before changing anything",
+            "behaviour differs from what I expect and the reason is not obvious"
+          ],
+          "negative": [
+            { "prompt": "production is down right now and users cannot log in", "owner": "incident-response" }
+          ]
+        },
+        {
+          "owner": "browser-verification",
+          "top_k": 3,
+          "positive": [
+            "load it in a browser and check the console and network requests",
+            "confirm this visual change actually renders and is keyboard reachable",
+            "the test passes but check the page really works"
+          ],
+          "negative": [
+            { "prompt": "build the component with all of its states", "owner": "frontend-build" }
+          ]
+        },
+        {
+          "owner": "code-review-pass",
+          "top_k": 3,
+          "positive": [
+            "review this pull request before I merge it",
+            "do a quality pass on this diff for correctness and readability",
+            "review the changes another model just wrote for me"
+          ],
+          "negative": [
+            { "prompt": "audit this for vulnerabilities and an attack path", "owner": "security-hardening" }
+          ]
+        },
+        {
+          "owner": "simplification-pass",
+          "top_k": 3,
+          "positive": [
+            "this code is more complex than the problem, simplify it",
+            "remove the dead code and the abstraction with one implementation",
+            "make this smaller without changing behaviour"
+          ],
+          "negative": [
+            { "prompt": "review this diff and rank the findings by severity", "owner": "code-review-pass" }
+          ]
+        },
+        {
+          "owner": "security-hardening",
+          "top_k": 3,
+          "positive": [
+            "audit this for vulnerabilities and show me the attack path",
+            "this handler takes untrusted input and touches authorization, check it",
+            "threat model this new internet facing surface"
+          ],
+          "negative": [
+            { "prompt": "review this diff for readability and naming", "owner": "code-review-pass" }
+          ]
+        },
+        {
+          "owner": "performance-pass",
+          "top_k": 3,
+          "positive": [
+            "this endpoint got slower, find the regression and fix it",
+            "profile it and cut p95 latency under the budget",
+            "there is an n+1 query somewhere in this request"
+          ],
+          "negative": [
+            { "prompt": "simplify this code without changing behaviour", "owner": "simplification-pass" }
+          ]
+        },
+        {
+          "owner": "release-and-rollback",
+          "top_k": 3,
+          "positive": [
+            "plan the deploy with a rollback path and an abort criterion",
+            "we are shipping this migration to production behind a flag",
+            "what is the rollout sequence and how do we undo it"
+          ],
+          "negative": [
+            { "prompt": "the site is down right now, coordinate this outage", "owner": "incident-response" }
+          ]
+        },
+        {
+          "owner": "incident-response",
+          "top_k": 3,
+          "positive": [
+            "production is down right now and we need to coordinate",
+            "set the severity and get a status update out for this outage",
+            "write the blameless postmortem for yesterday's incident"
+          ],
+          "negative": [
+            { "prompt": "plan the rollout with a rollback and an abort criterion", "owner": "release-and-rollback" }
+          ]
+        },
+        {
+          "owner": "documentation",
+          "top_k": 3,
+          "positive": [
+            "write a readme and a quickstart for this project",
+            "the docs are stale and wrong after this change",
+            "write a runbook for this alert"
+          ],
+          "negative": [
+            { "prompt": "record the architecture decision and what we rejected", "owner": "architecture-decision" }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "agent",
+      "cases": [
+        {
+          "owner": "product-manager",
+          "top_k": 3,
+          "positive": [
+            "turn this fuzzy request into scoped requirements with acceptance criteria",
+            "scope keeps growing and nobody wrote down the non-goals"
+          ],
+          "negative": [
+            { "prompt": "decompose this into sequenced tasks and assign them", "owner": "tech-lead" }
+          ]
+        },
+        {
+          "owner": "tech-lead",
+          "top_k": 3,
+          "positive": [
+            "decompose these approved requirements into a sequenced task breakdown",
+            "route this project and record the architecture decision"
+          ],
+          "negative": [
+            { "prompt": "write the requirements and acceptance criteria first", "owner": "product-manager" }
+          ]
+        },
+        {
+          "owner": "principal-engineer",
+          "top_k": 3,
+          "positive": [
+            "two reviewers disagree, arbitrate this contract decision",
+            "this concurrency bug beat the senior engineer, it is subtle"
+          ],
+          "negative": [
+            { "prompt": "assign this task list to the right tiers", "owner": "tech-lead" }
+          ]
+        },
+        {
+          "owner": "senior-engineer",
+          "top_k": 3,
+          "positive": [
+            "this refactor spans several modules and the requirements are incomplete",
+            "run this migration, it is ambiguous and cross cutting"
+          ],
+          "negative": [
+            { "prompt": "clear requirement, existing pattern, ordinary feature work", "owner": "software-engineer" }
+          ]
+        },
+        {
+          "owner": "software-engineer",
+          "top_k": 3,
+          "positive": [
+            "implement this well specified feature following the existing pattern",
+            "ordinary day to day bug fix with a clear requirement, test first"
+          ],
+          "negative": [
+            { "prompt": "the requirements are ambiguous and it crosses modules", "owner": "senior-engineer" }
+          ]
+        },
+        {
+          "owner": "intern-engineer",
+          "top_k": 3,
+          "positive": [
+            "fully specified mechanical rename in two files, brief attached",
+            "copy this exact pattern and add one case, nothing else"
+          ],
+          "negative": [
+            { "prompt": "resolve the ambiguity and invent a pattern for this", "owner": "senior-engineer" }
+          ]
+        },
+        {
+          "owner": "code-reviewer",
+          "top_k": 3,
+          "positive": [
+            "review this pull request across correctness and readability before merge",
+            "give me severity labelled findings on this diff"
+          ],
+          "negative": [
+            { "prompt": "what tests are missing and why is the suite flaky", "owner": "test-engineer" }
+          ]
+        },
+        {
+          "owner": "test-engineer",
+          "top_k": 3,
+          "positive": [
+            "what tests do we need here and where are the coverage gaps",
+            "the suite is slow and flaky, design a better test strategy"
+          ],
+          "negative": [
+            { "prompt": "review this diff and label findings by severity", "owner": "code-reviewer" }
+          ]
+        },
+        {
+          "owner": "security-auditor",
+          "top_k": 3,
+          "positive": [
+            "audit this authentication change for vulnerabilities",
+            "threat model the secrets and cryptography in this service"
+          ],
+          "negative": [
+            { "prompt": "measure the latency and fix the regression", "owner": "performance-engineer" }
+          ]
+        },
+        {
+          "owner": "performance-engineer",
+          "top_k": 3,
+          "positive": [
+            "diagnose this measured latency regression against our budget",
+            "memory keeps growing and the build is slow"
+          ],
+          "negative": [
+            { "prompt": "audit the authorization on this endpoint", "owner": "security-auditor" }
+          ]
+        },
+        {
+          "owner": "sre",
+          "top_k": 3,
+          "positive": [
+            "plan the release with feature flags rollback and alerts",
+            "this service needs a runbook and a deployment pipeline"
+          ],
+          "negative": [
+            { "prompt": "production is broken right now, take command", "owner": "incident-commander" }
+          ]
+        },
+        {
+          "owner": "incident-commander",
+          "top_k": 3,
+          "positive": [
+            "production is broken right now, run this outage",
+            "assess severity, mitigate, and write the postmortem afterwards"
+          ],
+          "negative": [
+            { "prompt": "set up the deploy pipeline and the rollback plan", "owner": "sre" }
+          ]
+        },
+        {
+          "owner": "firmware-engineer",
+          "top_k": 3,
+          "positive": [
+            "write this microcontroller driver with a stack and flash budget",
+            "rtos task and interrupt handler work on an embedded target"
+          ],
+          "negative": [
+            { "prompt": "the new board will not boot and jtag will not attach", "owner": "board-bringup-engineer" }
+          ]
+        },
+        {
+          "owner": "board-bringup-engineer",
+          "top_k": 3,
+          "positive": [
+            "new board first power on, jtag will not attach and it will not boot",
+            "hard fault before main and the linker script may be wrong"
+          ],
+          "negative": [
+            { "prompt": "write the rtos task under a memory budget", "owner": "firmware-engineer" }
+          ]
+        },
+        {
+          "owner": "frontend-engineer",
+          "top_k": 3,
+          "positive": [
+            "build this component, its state and its responsive layout",
+            "the page re-renders too much and core web vitals are bad"
+          ],
+          "negative": [
+            { "prompt": "critique the usability and rewrite the error copy", "owner": "ux-reviewer" }
+          ]
+        },
+        {
+          "owner": "ux-reviewer",
+          "top_k": 3,
+          "positive": [
+            "critique this screen for usability hierarchy and consistency",
+            "audit accessibility and rewrite the empty state copy"
+          ],
+          "negative": [
+            { "prompt": "implement the component and its loading state", "owner": "frontend-engineer" }
+          ]
+        },
+        {
+          "owner": "docs-engineer",
+          "top_k": 3,
+          "positive": [
+            "write the readme and the onboarding guide for this repo",
+            "the changelog and api reference have gone stale"
+          ],
+          "negative": [
+            { "prompt": "critique the interface and its accessibility", "owner": "ux-reviewer" }
+          ]
+        }
+      ]
+    }
+  ]
+}

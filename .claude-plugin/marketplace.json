@@ -1,0 +1,31 @@
+{
+  "name": "agent-dev-team",
+  "owner": {
+    "name": "agent-dev-team contributors"
+  },
+  "metadata": {
+    "description": "A tiered engineering team for AI coding tools.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "agent-dev-team",
+      "source": "./",
+      "description": "17 role agents across four tiers, 20 portable workflow skills, and an escalation protocol that keeps work at the right level.",
+      "version": "0.1.0",
+      "author": {
+        "name": "agent-dev-team contributors"
+      },
+      "homepage": "https://github.com/OWNER/agent-dev-team",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "engineering",
+        "code-review",
+        "firmware",
+        "sre"
+      ]
+    }
+  ]
+}

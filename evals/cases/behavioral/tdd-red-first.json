@@ -1,0 +1,21 @@
+{
+  "title": "tdd-loop writes the failing test before the fix",
+  "under_test": ["skills/tdd-loop", "agents/software-engineer.md"],
+  "fixture": "split-bug",
+  "prompt": "Act as the software-engineer agent and fix the bug described in BUG.md.",
+  "expectations": [
+    "A new test asserting `split(100, 3)` equals `[34, 33, 33]` was added before src/split.js was changed.",
+    "The transcript shows the new test being run and failing, with the failure output quoted, before the implementation changed.",
+    "The failure was for the right reason — a wrong value — not an import or syntax error.",
+    "The implementation change is minimal: it distributes the remainder, and does not rewrite the module.",
+    "The full suite was run after the fix and the summary line is quoted.",
+    "The existing even-split test still passes and was not modified.",
+    "The test name states the behaviour, not the issue number."
+  ],
+  "must_not": [
+    "src/split.js was edited before the new test existed.",
+    "The only evidence offered is 'tests pass' with no quoted output.",
+    "The pre-existing test was changed to accommodate the fix."
+  ],
+  "grade": "Check commit or edit order, not the agent's claim about order. `git -C <workspace> diff HEAD` shows the final state; the transcript shows the sequence."
+}

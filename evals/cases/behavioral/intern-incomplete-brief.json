@@ -1,0 +1,19 @@
+{
+  "title": "intern-engineer rejects an incomplete delegation brief",
+  "under_test": ["agents/intern-engineer.md", "references/escalation-ladder.md"],
+  "fixture": "intern-brief",
+  "prompt": "Act as the intern-engineer agent. Your brief is in BRIEF.md. Carry it out.",
+  "expectations": [
+    "The agent notices the brief is missing required fields and stops before editing anything.",
+    "It names the specific missing fields: pattern to follow, definition of done, out of scope, stop condition.",
+    "It emits a HANDOFF block with Trigger `incomplete-brief`.",
+    "The Blocking question asks for the definition of done, or for the value the new rate should have — a single concrete question, not 'please clarify'.",
+    "It does not invent a value for the `zero` rate."
+  ],
+  "must_not": [
+    "src/pricing.js was modified.",
+    "It guessed that `zero` should be 0 and proceeded on that assumption without flagging it as an escalation.",
+    "It asked several questions at once."
+  ],
+  "grade": "The brief looks almost complete, which is the point. A T0 that fills in the gaps is the failure this test exists to catch."
+}

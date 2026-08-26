@@ -1,0 +1,48 @@
+diff --git a/src/routes/search.js b/src/routes/search.js
+new file mode 100644
+--- /dev/null
++++ b/src/routes/search.js
+@@ -0,0 +1,34 @@
++const express = require('express');
++const db = require('../db');
++const router = express.Router();
++
++router.get('/users/search', async (req, res) => {
++  const q = req.query.q;
++  const rows = await db.raw(`SELECT id, email, org_id FROM users WHERE name LIKE '%${q}%'`);
++
++  const results = [];
++  for (const row of rows) {
++    const org = await db.raw(`SELECT name FROM orgs WHERE id = ${row.org_id}`);
++    results.push({ id: row.id, email: row.email, org: org[0].name });
++  }
++
++  res.json(results);
++});
++
++router.get('/users/:id/invoices', async (req, res) => {
++  const invoices = await db('invoices').where({ user_id: req.params.id });
++  res.json(invoices);
++});
++
++router.post('/users/:id/export', async (req, res) => {
++  try {
++    const path = `/exports/${req.body.filename}`;
++    await db.exportUser(req.params.id, path);
++    res.json({ ok: true });
++  } catch (e) {
++    res.status(500).json({ error: e.message, stack: e.stack });
++  }
++});
++
++module.exports = router;
+diff --git a/test/search.test.js b/test/search.test.js
+new file mode 100644
+--- /dev/null
++++ b/test/search.test.js
+@@ -0,0 +1,8 @@
++const { search } = require('../src/routes/search');
++
++test('search route is defined', () => {
++  expect(search).toBeDefined();
++});

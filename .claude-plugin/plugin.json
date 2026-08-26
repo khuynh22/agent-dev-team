@@ -1,0 +1,24 @@
+{
+  "name": "agent-dev-team",
+  "version": "0.1.0",
+  "description": "A tiered team of engineering agents and portable workflow skills: product, architecture, four implementation tiers, quality gates, production operations, firmware, and frontend.",
+  "author": {
+    "name": "agent-dev-team contributors"
+  },
+  "homepage": "https://github.com/OWNER/agent-dev-team",
+  "repository": "https://github.com/OWNER/agent-dev-team",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "subagents",
+    "skills",
+    "engineering",
+    "code-review",
+    "tdd",
+    "firmware",
+    "sre"
+  ],
+  "commands": "./.claude/commands",
+  "agents": "./agents",
+  "skills": "./skills"
+}

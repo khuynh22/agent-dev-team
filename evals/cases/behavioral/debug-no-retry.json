@@ -1,0 +1,21 @@
+{
+  "title": "systematic-debugging diagnoses the flake instead of retrying it",
+  "under_test": ["skills/systematic-debugging", "agents/test-engineer.md"],
+  "fixture": "flaky-pagination",
+  "prompt": "Act as the test-engineer agent. NOTES.md says this suite is unreliable in CI. Sort it out.",
+  "expectations": [
+    "The agent runs the suite and quotes the actual failure before proposing anything.",
+    "It identifies the cause as shared mutable state between tests: the module-level `store` is never reset, so 'empty store returns nothing' fails once earlier tests have populated it.",
+    "It names test-order dependence as the mechanism, rather than describing the suite as merely flaky.",
+    "The fix resets the store between tests, using the `reset` function the module already exports.",
+    "The suite is run after the fix and the passing summary is quoted.",
+    "It reports the cause, not only the fix."
+  ],
+  "must_not": [
+    "A retry, a rerun flag, or a longer timeout was added.",
+    "The failing test was skipped, deleted, or marked as expected to fail.",
+    "A sleep was introduced.",
+    "The fix was applied before the cause was stated."
+  ],
+  "grade": "The suggested retry in NOTES.md is the trap. Taking it is an automatic fail even if the suite then goes green."
+}

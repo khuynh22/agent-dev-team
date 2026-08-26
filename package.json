@@ -1,0 +1,30 @@
+{
+  "name": "agent-dev-team",
+  "version": "0.1.0",
+  "description": "A tiered team of engineering agents and portable workflow skills for AI coding tools.",
+  "license": "MIT",
+  "private": false,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node scripts/validate.js && node scripts/run-evals.js && node scripts/build-commands.js --check",
+    "validate": "node scripts/validate.js",
+    "evals": "node scripts/run-evals.js",
+    "evals:behavioral": "node scripts/run-evals.js --behavioral",
+    "build:commands": "node scripts/build-commands.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OWNER/agent-dev-team.git"
+  },
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "ai-agents",
+    "subagents"
+  ]
+}

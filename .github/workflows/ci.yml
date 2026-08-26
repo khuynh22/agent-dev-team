@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No dependencies by design: every check runs on a bare Node install, so a
+      # contributor can reproduce CI exactly with no install step.
+      - name: Static validation
+        run: node scripts/validate.js
+
+      - name: Routing evals
+        run: node scripts/run-evals.js
+
+      - name: Generated command shims are in sync
+        run: node scripts/build-commands.js --check
+
+  fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # A behavioral fixture whose baseline has drifted grades the wrong thing.
+      - name: split-bug baseline is green
+        working-directory: evals/fixtures/split-bug
+        run: node --test
+
+      - name: flaky-pagination baseline is red
+        working-directory: evals/fixtures/flaky-pagination
+        run: |
+          if node --test; then
+            echo "fixture should fail on test-order dependence but passed" >&2
+            exit 1
+          fi
+
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer parses and its help works
+        run: |
+          bash -n scripts/install.sh
+          bash scripts/install.sh --help

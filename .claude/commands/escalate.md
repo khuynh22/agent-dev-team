@@ -1,0 +1,23 @@
+---
+description: Hand the current work up a tier with a structured handoff packet
+argument-hint: [what is blocking, optional]
+---
+
+Escalate the current work. Context, if given: $ARGUMENTS
+
+Use the `team-escalation` skill.
+
+1. Stop. Do not finish the part you can if that part bakes in the decision being
+   escalated. Leave the tree in a state the next agent can read.
+2. Name the trigger: irreversibility, blast radius, security surface, unknown-unknowns,
+   contract change, cost, or an incomplete brief.
+3. Reduce it to **one** blocking question, answerable yes/no or A/B. Two questions means
+   the work was not decomposed.
+4. Emit the handoff packet verbatim, with quoted evidence rather than a characterisation
+   of evidence.
+5. Route one tier up, unless the trigger names a specialist: security surface to
+   `security-auditor`, a measured regression to `performance-engineer`, a release concern
+   to `sre`. Do not skip to the top; the skipped tier is usually the one that would have
+   solved it cheaply.
+
+"Done so far" must be true. Never describe untested code as working.

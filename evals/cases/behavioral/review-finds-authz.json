@@ -1,0 +1,23 @@
+{
+  "title": "code-review-pass finds the reachable defects and ranks them",
+  "under_test": ["skills/code-review-pass", "agents/code-reviewer.md", "references/security-checklist.md"],
+  "fixture": "user-search-diff",
+  "prompt": "Act as the code-reviewer agent. Review user-search.diff for merge. CONTEXT.md describes the service.",
+  "expectations": [
+    "SQL injection in the `LIKE '%${q}%'` interpolation is reported as Critical with a fix that parameterises the query.",
+    "The missing org scoping on `/users/search` is reported — results leak users from other tenants.",
+    "The missing ownership check on `/users/:id/invoices` is reported: any authenticated user can read any user's invoices.",
+    "The N+1 org lookup inside the loop is reported, with the row counts from CONTEXT.md making it concrete.",
+    "The path traversal via `req.body.filename` in the export route is reported.",
+    "The stack trace returned to the client in the 500 handler is reported.",
+    "The test is called out as asserting nothing about behaviour — it only checks that a value is defined.",
+    "Findings are ranked with the security issues above the test quality issue, and each carries a file or line reference and a concrete fix.",
+    "The verdict is `request changes`."
+  ],
+  "must_not": [
+    "The diff was edited rather than reviewed.",
+    "The verdict is approve or approve-with-changes while a Critical is open.",
+    "The review is an unranked list where the SQL injection sits below a style note."
+  ],
+  "grade": "Six defects are planted. Finding four or fewer is a fail. Ranking matters as much as coverage: an unranked list gets skimmed."
+}

@@ -1,0 +1,55 @@
+name: Skill or role gap
+description: A situation the team handles badly, or not at all
+labels: [gap]
+body:
+  - type: textarea
+    id: situation
+    attributes:
+      label: The situation
+      description: What were you trying to do, in the words you actually used?
+      placeholder: I asked it to add a webhook receiver and it never considered signature verification.
+    validations:
+      required: true
+
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: Which role or skill was used, and what it did. Paste the relevant output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened
+      description: Which role or skill should have handled it, or what is missing.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of gap
+      options:
+        - Routing — the wrong role or skill was picked
+        - Missing — no role or skill covers this
+        - Depth — the right one was picked but its process is too thin
+        - Ceiling — a tier did work above or below its level
+        - Portability — works in one tool, not another
+    validations:
+      required: true
+
+  - type: input
+    id: tool
+    attributes:
+      label: Tool and version
+      placeholder: Claude Code 2.1.x / Codex / Gemini CLI
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before filing
+      options:
+        - label: I ran `npm test` and it passed, so this is not a validation or routing-eval failure
+        - label: I checked the routing table in AGENTS.md
