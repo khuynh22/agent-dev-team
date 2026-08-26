@@ -83,11 +83,29 @@ hides the fact that the brief is too vague, and it costs more.
 4. If you hit a ceiling, stop and use `team-escalation`. Escalating with a handoff packet
    is the system working, not a failure.
 
+## Finding the reference files
+
+Skills and roles cite checklists as `references/<name>.md`. That path is relative to the
+**agent-dev-team installation**, not to the project you are working in, so a plain read
+from a project directory will miss.
+
+Resolve it once, at the start of a session that needs one, and reuse the answer:
+
+1. If the harness exposes a plugin root variable, `references/` sits directly under it.
+2. Otherwise search for `**/references/escalation-ladder.md` across the installation
+   directory — `~/.claude/plugins/`, `~/.claude/skills/`, or wherever the repository was
+   cloned.
+3. Under a copy-mode install the directory is `~/.claude/skills/adt-references/`.
+
+A checklist that cannot be found is not a reason to skip it. Say you could not load it and
+work from the process in the skill body, which is self-contained.
+
 ## Red flags
 
 | Thought | Reality |
 |---------|---------|
 | "I know what to do, I'll skip routing" | Routing takes ten seconds and prevents the wrong tier doing the work. |
+| "I could not find the checklist, so I skipped that step" | Say so. The skill body carries the process; the checklist adds depth. |
 | "I'll assign it senior to be safe" | Over-assignment hides a vague brief. Fix the brief. |
 | "It grew but I'm almost done" | Re-classify. Hidden complexity upgrades the class mid-task. |
 | "No skill fits exactly" | Take the nearest. Partial process beats none. |

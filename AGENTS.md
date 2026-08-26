@@ -124,3 +124,10 @@ evals/        routing and behavioral test cases
 scripts/      validation, evals, installers
 docs/         per-tool setup and the manual test plan
 ```
+
+Paths written as `references/<name>.md` are relative to this installation directory, not
+to the project you are working in. Resolve the location once per session: under a plugin
+install it is the plugin root; under a copy install it is
+`~/.claude/skills/adt-references/`; otherwise search for
+`**/references/escalation-ladder.md`. If a checklist cannot be found, say so and work from
+the skill body, which is self-contained — do not silently skip the step.
