@@ -31,7 +31,7 @@ touching auth.
 ### Claude Code
 
 ```bash
-git clone https://github.com/OWNER/agent-dev-team.git
+git clone https://github.com/khuynh22/agent-dev-team.git
 cd agent-dev-team
 ./scripts/install.sh
 ```
