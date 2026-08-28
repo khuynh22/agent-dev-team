@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Routing or role question
+    url: https://github.com/khuynh22/agent-dev-team/blob/master/AGENTS.md
+    about: The roster, the routing table, and the escalation protocol are all in AGENTS.md.
+  - name: Setup for a specific tool
+    url: https://github.com/khuynh22/agent-dev-team/blob/master/docs/tool-setup.md
+    about: Claude Code, Codex, Gemini CLI, Cursor, Windsurf, and anything reading AGENTS.md.
+  - name: Security vulnerability
+    url: https://github.com/khuynh22/agent-dev-team/security/advisories/new
+    about: Report privately. Do not open a public issue. See SECURITY.md for the threat model.

@@ -244,6 +244,66 @@
           "negative": [
             { "prompt": "record the architecture decision and what we rejected", "owner": "architecture-decision" }
           ]
+        },
+        {
+          "owner": "data-pipeline",
+          "top_k": 3,
+          "positive": [
+            "the nightly ingestion job produced duplicate rows on retry",
+            "build an elt job that can be safely re-run and backfilled",
+            "plan a backfill of the last six months into this warehouse table"
+          ],
+          "negative": [
+            { "prompt": "add freshness and uniqueness checks to this table", "owner": "data-quality" }
+          ]
+        },
+        {
+          "owner": "data-modeling",
+          "top_k": 3,
+          "positive": [
+            "build a dbt model for daily active accounts at one row per account per day",
+            "the same metric is defined three different ways across our marts",
+            "this dimension overwrites its history so old reports changed"
+          ],
+          "negative": [
+            { "prompt": "the ingestion job duplicated rows when it retried", "owner": "data-pipeline" }
+          ]
+        },
+        {
+          "owner": "data-quality",
+          "top_k": 3,
+          "positive": [
+            "this warehouse table has no tests and a wrong number reached the dashboard",
+            "the scheduled job exited successfully but wrote zero rows",
+            "add freshness and volume checks with an owner for each alert"
+          ],
+          "negative": [
+            { "prompt": "why did signups drop last week", "owner": "data-analysis" }
+          ]
+        },
+        {
+          "owner": "data-analysis",
+          "top_k": 3,
+          "positive": [
+            "why did signups drop last week",
+            "what does this metric measure and over what denominator",
+            "read out this experiment result with its caveats"
+          ],
+          "negative": [
+            { "prompt": "add uniqueness and null checks to this warehouse table", "owner": "data-quality" }
+          ]
+        },
+        {
+          "owner": "ml-lifecycle",
+          "top_k": 3,
+          "positive": [
+            "take this model to production with a canary and a rollback",
+            "our predictions got worse in production and we suspect drift",
+            "training and serving compute the features differently"
+          ],
+          "negative": [
+            { "prompt": "the warehouse table needs freshness and volume checks", "owner": "data-quality" }
+          ]
         }
       ]
     },
@@ -435,6 +495,55 @@
           ],
           "negative": [
             { "prompt": "critique the interface and its accessibility", "owner": "ux-reviewer" }
+          ]
+        },
+        {
+          "owner": "data-engineer",
+          "top_k": 3,
+          "positive": [
+            "the ingestion pipeline is late and silently dropping rows",
+            "build a job that lands this source into the warehouse",
+            "we need a partitioning and backfill plan for this raw table"
+          ],
+          "negative": [
+            { "prompt": "why did revenue drop last week", "owner": "data-analyst" }
+          ]
+        },
+        {
+          "owner": "analytics-engineer",
+          "top_k": 3,
+          "positive": [
+            "refactor these dbt models and document the metric definitions",
+            "analysts keep rewriting the same join, it belongs in a model",
+            "one metric has three conflicting definitions across dashboards"
+          ],
+          "negative": [
+            { "prompt": "the overnight ingestion pipeline keeps failing", "owner": "data-engineer" }
+          ]
+        },
+        {
+          "owner": "data-analyst",
+          "top_k": 3,
+          "positive": [
+            "why did conversion drop last week",
+            "is this dashboard number believable and what is the denominator",
+            "segment this retention number and tell me what is actually driving it"
+          ],
+          "negative": [
+            { "prompt": "build the nightly ingestion job into the warehouse", "owner": "data-engineer" },
+            { "prompt": "decide what active user should mean for the business", "owner": "product-manager" }
+          ]
+        },
+        {
+          "owner": "ml-engineer",
+          "top_k": 3,
+          "positive": [
+            "take this trained model from notebook to production serving",
+            "predictions degraded after launch and we suspect input drift",
+            "design the offline and online evaluation for this model"
+          ],
+          "negative": [
+            { "prompt": "the warehouse pipeline is duplicating rows", "owner": "data-engineer" }
           ]
         }
       ]

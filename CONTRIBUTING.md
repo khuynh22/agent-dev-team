@@ -82,6 +82,20 @@ Put the trap in. A case where the right answer is the obvious answer tests nothi
 3. Verify the fixture's baseline state is what you think it is. Run the suite.
 4. Check it end to end: `node scripts/run-evals.js --behavioral <id>`.
 
+## Pull requests
+
+Open one against `master`. The template lists the checks; the one that trips people up is
+that counts appear in three places — the `README.md` opening paragraph, the roster and
+routing tables in `AGENTS.md`, and the expected output in `docs/test-plan.md`. Adding a
+skill or agent means updating all three, and `scripts/validate.js` only catches the second.
+
+Add an entry under **Unreleased** in [`CHANGELOG.md`](CHANGELOG.md) for anything a user
+would notice: a new role, a renamed skill, a changed escalation path. Not for typos.
+
+Participation is covered by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Arguing that a
+design is wrong is fine and expected; attacking the person is not. Security issues go
+through the private flow in [`SECURITY.md`](SECURITY.md), never a public issue.
+
 ## Style
 
 Prose is for working engineers. Cut anything that restates what the reader can see. Length

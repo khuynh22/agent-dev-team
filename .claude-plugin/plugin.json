@@ -1,7 +1,7 @@
 {
   "name": "agent-dev-team",
   "version": "0.1.0",
-  "description": "A tiered team of engineering agents and portable workflow skills: product, architecture, four implementation tiers, quality gates, production operations, firmware, and frontend.",
+  "description": "A tiered team of engineering agents and portable workflow skills: product, architecture, four implementation tiers, quality gates, production operations, firmware, frontend, and data.",
   "author": {
     "name": "agent-dev-team contributors"
   },
@@ -16,7 +16,11 @@
     "code-review",
     "tdd",
     "firmware",
-    "sre"
+    "sre",
+    "data-engineering",
+    "analytics"
   ],
-  "commands": ["./.claude/commands/"]
+  "commands": [
+    "./.claude/commands/"
+  ]
 }

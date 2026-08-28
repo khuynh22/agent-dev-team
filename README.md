@@ -1,8 +1,14 @@
 # agent-dev-team
 
-A tiered engineering team for AI coding tools. Seventeen role agents across four seniority
-tiers, twenty portable workflow skills, and an escalation protocol that keeps work at the
-right level instead of letting one undifferentiated assistant attempt everything.
+[![ci](https://github.com/khuynh22/agent-dev-team/actions/workflows/ci.yml/badge.svg)](https://github.com/khuynh22/agent-dev-team/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](package.json)
+[![dependencies: none](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](package.json)
+[![Agent Skills spec](https://img.shields.io/badge/Agent%20Skills-spec--compliant-8A2BE2.svg)](https://agentskills.io)
+
+A tiered engineering team for AI coding tools. Twenty-one role agents across four seniority
+tiers, twenty-five portable workflow skills, and an escalation protocol that keeps work at
+the right level instead of letting one undifferentiated assistant attempt everything.
 
 Works in Claude Code, Codex, Gemini CLI, Cursor, Windsurf, opencode, GitHub Copilot, and
 anything else that reads `AGENTS.md` or the [Agent Skills](https://agentskills.io) format.
@@ -19,8 +25,8 @@ This encodes that as a ceiling per role, and a structured handoff when the ceili
 | Tier | Role examples | Ceiling |
 |------|---------------|---------|
 | T0 | `intern-engineer` | 2 files. No deps, schema, API, auth, concurrency, or migrations. Halts at the first gap in the brief. |
-| T1 | `software-engineer`, `docs-engineer` | Inside an existing pattern. Escalates on interface changes. |
-| T2 | `senior-engineer`, `code-reviewer`, `sre`, `firmware-engineer` | Ambiguity, subsystems, migrations. Escalates on irreversible work. |
+| T1 | `software-engineer`, `analytics-engineer`, `docs-engineer` | Inside an existing pattern. Escalates on interface changes. |
+| T2 | `senior-engineer`, `code-reviewer`, `sre`, `data-engineer`, `data-analyst` | Ambiguity, subsystems, migrations. Escalates on irreversible work. |
 | T3 | `principal-engineer`, `tech-lead`, `security-auditor`, `incident-commander` | Must decide. Escalates only to the human, and only on intent, cost, or risk. |
 
 Confidence never raises a ceiling. A T0 that is *sure* about an auth change is still a T0
@@ -111,15 +117,16 @@ escalation trigger — under-specified delegation is the delegator's defect.
 **Production** — `sre`, `incident-commander`
 **Firmware** — `firmware-engineer`, `board-bringup-engineer`
 **Frontend** — `frontend-engineer`, `ux-reviewer`
+**Data** — `data-engineer`, `analytics-engineer`, `data-analyst`, `ml-engineer`
 **Support** — `docs-engineer`
 
 ## Skills
 
 **Define** `requirements-interview` · `spec-writing`
 **Plan** `work-breakdown` · `architecture-decision` · `api-design`
-**Build** `tdd-loop` · `incremental-delivery` · `frontend-build` · `firmware-build`
+**Build** `tdd-loop` · `incremental-delivery` · `frontend-build` · `firmware-build` · `data-pipeline` · `data-modeling` · `ml-lifecycle`
 **Verify** `systematic-debugging` · `browser-verification`
-**Review** `code-review-pass` · `simplification-pass` · `security-hardening` · `performance-pass`
+**Review** `code-review-pass` · `simplification-pass` · `security-hardening` · `performance-pass` · `data-quality` · `data-analysis`
 **Ship** `release-and-rollback` · `incident-response` · `documentation`
 **Meta** `using-agent-dev-team` · `team-escalation`
 
@@ -164,6 +171,16 @@ text, and text travels.
 See [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version: add routing eval cases before
 the skill, and when an eval fails, fix the description rather than the case.
 
+CI runs `npm test` — static validation, routing evals, and the generated-shim drift check —
+on every pull request, plus the behavioral fixture baselines and a parse check on the
+installer. There are no dependencies to install; a bare Node 18 or later reproduces CI
+exactly.
+
+- [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) — how we disagree in public
+- [`SECURITY.md`](SECURITY.md) — the threat model for a repository that ships prompts, and
+  how to report privately
+- [`CHANGELOG.md`](CHANGELOG.md) — what changed, and what counts as breaking here
+
 ## Prior art
 
 The lifecycle structure, the anti-rationalization tables, and the tiered eval approach
@@ -173,4 +190,4 @@ project's additions.
 
 ## License
 
-MIT.
+MIT — see [`LICENSE`](LICENSE).

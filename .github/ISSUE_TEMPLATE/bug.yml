@@ -1,0 +1,74 @@
+name: Bug in the tooling
+description: Validation, routing evals, the installer, or the generated command shims misbehave
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This template is for the repository's own tooling. If an **agent or skill behaved
+        badly**, use "Skill or role gap" instead — that is a content problem, not a tooling bug.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part
+      options:
+        - scripts/validate.js
+        - scripts/run-evals.js
+        - scripts/build-commands.js
+        - scripts/install.sh or install.ps1
+        - Generated shims in commands/ or .gemini/commands/
+        - CI workflow
+        - Documentation is wrong or out of date
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: The exact commands, in order, starting from a fresh clone.
+      render: shell
+      placeholder: |
+        git clone https://github.com/khuynh22/agent-dev-team.git
+        cd agent-dev-team
+        npm test
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Paste the output. The decisive line matters more than the whole log.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      description: Output of `node --version`. The project requires >= 18.
+      placeholder: v20.11.1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows (PowerShell)
+        - Windows (Git Bash or WSL)
+    validations:
+      required: true
