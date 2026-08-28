@@ -18,6 +18,8 @@ context produces agreement rather than coverage.
   input crossing a trust boundary
 - `performance-engineer` with `performance-pass` — when the diff touches a measured hot
   path
+- `data-engineer` with `data-quality` — when the diff changes a pipeline, a warehouse
+  model, or a metric definition
 - `ux-reviewer` — when the diff changes what a user sees or reads
 
 Then merge: rank by severity, de-duplicate by `file:line`, and escalate any disagreement

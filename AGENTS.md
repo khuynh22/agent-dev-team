@@ -45,6 +45,10 @@ Confidence never raises a ceiling.
 | `board-bringup-engineer` | T2 | New hardware, boot failure, signal-level debugging |
 | `frontend-engineer` | T2 | Components, state, layout, Core Web Vitals |
 | `ux-reviewer` | T2 | Usability, accessibility, interface copy |
+| `data-engineer` | T2 | Pipelines, warehouse schema, backfills, orchestration |
+| `analytics-engineer` | T1 | Transformation models, metric definitions, dimensions |
+| `data-analyst` | T2 | Questions answered from data, with denominators and caveats |
+| `ml-engineer` | T2 | Model to production, evaluation, drift, model rollback |
 | `docs-engineer` | T1 | READMEs, ADRs, runbooks, changelogs |
 
 ## Routing
@@ -71,6 +75,11 @@ Confidence never raises a ceiling.
 | Measured slowness | `performance-engineer` | `performance-pass` |
 | Shipping to production | `sre` | `release-and-rollback` |
 | Production is broken now | `incident-commander` | `incident-response` |
+| Pipeline broken, late, or duplicating rows | `data-engineer` | `data-pipeline` |
+| A warehouse model or a metric definition | `analytics-engineer` | `data-modeling` |
+| A table has no tests, or a number reached a dashboard wrong | `data-analyst` | `data-quality` |
+| A question to answer from data | `data-analyst` | `data-analysis` |
+| Shipping, retraining, or debugging a model | `ml-engineer` | `ml-lifecycle` |
 | Docs missing or stale | `docs-engineer` | `documentation` |
 | Task exceeded the current ceiling | — | `team-escalation` |
 | Not sure who or what | — | `using-agent-dev-team` |
