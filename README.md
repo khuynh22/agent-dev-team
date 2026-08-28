@@ -1,5 +1,11 @@
 # agent-dev-team
 
+[![ci](https://github.com/khuynh22/agent-dev-team/actions/workflows/ci.yml/badge.svg)](https://github.com/khuynh22/agent-dev-team/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](package.json)
+[![dependencies: none](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](package.json)
+[![Agent Skills spec](https://img.shields.io/badge/Agent%20Skills-spec--compliant-8A2BE2.svg)](https://agentskills.io)
+
 A tiered engineering team for AI coding tools. Twenty-one role agents across four seniority
 tiers, twenty-five portable workflow skills, and an escalation protocol that keeps work at
 the right level instead of letting one undifferentiated assistant attempt everything.
@@ -165,6 +171,15 @@ text, and text travels.
 See [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version: add routing eval cases before
 the skill, and when an eval fails, fix the description rather than the case.
 
+CI runs `npm test` — static validation, routing evals, and the generated-shim drift check —
+on every pull request, plus the behavioral fixture baselines and a parse check on the
+installer. There are no dependencies to install; a bare Node 18 or later reproduces CI
+exactly.
+
+- [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) — how we disagree in public
+- [`SECURITY.md`](SECURITY.md) — the threat model for a repository that ships prompts, and
+  how to report privately
+- [`CHANGELOG.md`](CHANGELOG.md) — what changed, and what counts as breaking here
 
 ## Prior art
 
@@ -175,4 +190,4 @@ project's additions.
 
 ## License
 
-MIT.
+MIT — see [`LICENSE`](LICENSE).

@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # The project has no npm dependencies by design, so the only pinned third-party code is
+  # the actions in the CI workflow.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
