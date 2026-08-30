@@ -6,11 +6,11 @@
 [![dependencies: none](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](package.json)
 [![Agent Skills spec](https://img.shields.io/badge/Agent%20Skills-spec--compliant-8A2BE2.svg)](https://agentskills.io)
 
-A tiered engineering team for AI coding tools. Twenty-one role agents across four seniority
-tiers, twenty-five portable workflow skills, and an escalation protocol that keeps work at
+A tiered engineering team for AI coding tools. 21 role agents across four seniority
+tiers, 25 portable workflow skills, and an escalation protocol that keeps work at
 the right level instead of letting one undifferentiated assistant attempt everything.
 
-Works in Claude Code, Codex, Gemini CLI, Cursor, Windsurf, opencode, GitHub Copilot, and
+Works in Claude Code, Codex, Gemini CLI, Cursor, Windsurf, OpenCode, GitHub Copilot, and
 anything else that reads `AGENTS.md` or the [Agent Skills](https://agentskills.io) format.
 
 ## Why tiers
@@ -168,18 +168,7 @@ text, and text travels.
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). The short version: add routing eval cases before
-the skill, and when an eval fails, fix the description rather than the case.
-
-CI runs `npm test` — static validation, routing evals, and the generated-shim drift check —
-on every pull request, plus the behavioral fixture baselines and a parse check on the
-installer. There are no dependencies to install; a bare Node 18 or later reproduces CI
-exactly.
-
-- [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) — how we disagree in public
-- [`SECURITY.md`](SECURITY.md) — the threat model for a repository that ships prompts, and
-  how to report privately
-- [`CHANGELOG.md`](CHANGELOG.md) — what changed, and what counts as breaking here
+See [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Prior art
 
@@ -187,7 +176,3 @@ The lifecycle structure, the anti-rationalization tables, and the tiered eval ap
 follow [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills). The tier
 ladder, the handoff and brief contracts, and the firmware and hardware tracks are this
 project's additions.
-
-## License
-
-MIT — see [`LICENSE`](LICENSE).
