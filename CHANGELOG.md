@@ -22,6 +22,15 @@ command, or that changes the escalation ladder in a way that redirects existing 
 - Open source scaffolding: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, a pull
   request template, a tooling bug template, issue template routing, and Dependabot for
   GitHub Actions.
+- Unattended runs: the `/autopilot` command, the `autonomous-relay` skill, and the
+  `references/autonomous-run.md` policy. A run takes a ticket through requirements, plan,
+  build, review, and a release plan without stopping at each stage boundary, and leaves a
+  local branch. It does not push and does not deploy.
+- Escalation redirect for unattended runs. A handoff packet from T0, T1, or T2 routes to a
+  terminal tier rather than halting; only a T3's own escalation on intent, cost, or risk
+  reaches the human. Ceilings, triggers, and the packet format are unchanged.
+- Manual scenarios S13 and S14, covering declared assumptions and a ceiling holding while
+  nobody is watching.
 
 ### Changed
 

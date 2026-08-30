@@ -7,7 +7,7 @@
 [![Agent Skills spec](https://img.shields.io/badge/Agent%20Skills-spec--compliant-8A2BE2.svg)](https://agentskills.io)
 
 A tiered engineering team for AI coding tools. 21 role agents across four seniority
-tiers, 25 portable workflow skills, and an escalation protocol that keeps work at
+tiers, 26 portable workflow skills, and an escalation protocol that keeps work at
 the right level instead of letting one undifferentiated assistant attempt everything.
 
 Works in Claude Code, Codex, Gemini CLI, Cursor, Windsurf, OpenCode, GitHub Copilot, and
@@ -76,6 +76,7 @@ starting.
 | Command | Does |
 |---------|------|
 | `/team` | Classify, route, and pick a workflow |
+| `/autopilot` | Run a ticket end to end unattended, then report |
 | `/spec` | Interview, then write requirements with acceptance criteria |
 | `/plan` | Break a spec into tasks, each with a tier and a brief |
 | `/build` | Execute the plan test-first, one verified commit per task |
@@ -128,7 +129,7 @@ escalation trigger — under-specified delegation is the delegator's defect.
 **Verify** `systematic-debugging` · `browser-verification`
 **Review** `code-review-pass` · `simplification-pass` · `security-hardening` · `performance-pass` · `data-quality` · `data-analysis`
 **Ship** `release-and-rollback` · `incident-response` · `documentation`
-**Meta** `using-agent-dev-team` · `team-escalation`
+**Meta** `using-agent-dev-team` · `team-escalation` · `autonomous-relay`
 
 Checklists in `references/` load only when a workflow points at one, so they cost nothing
 until they are needed.

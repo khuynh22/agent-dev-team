@@ -58,6 +58,21 @@ believe the gates.
 Adopting the whole lifecycle on an established codebase on day one usually means adopting
 none of it by day three.
 
+**Unattended** — the same lifecycle with nobody answering between stages:
+
+```
+/autopilot PROJ-482
+/autopilot "Export invoices as CSV. AC: header row, under 30s for 10k rows."
+```
+
+The first form fetches the ticket when a tracker connector is available; the second takes
+the body directly, which is what to use in a tool that has no connector.
+
+It leaves you a branch: committed, green, reviewed, with a release plan and a report. It
+does not push, does not open a pull request, and does not deploy. Read the report's
+assumptions section first — that is every place the run supplied intent you did not give
+it.
+
 ## Reading the tiers
 
 The number in a role's tier line is a ceiling, not a quality rating. `intern-engineer` is
