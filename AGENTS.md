@@ -81,6 +81,7 @@ Confidence never raises a ceiling.
 | A question to answer from data | `data-analyst` | `data-analysis` |
 | Shipping, retraining, or debugging a model | `ml-engineer` | `ml-lifecycle` |
 | Docs missing or stale | `docs-engineer` | `documentation` |
+| A ticket to work end to end, unattended | `tech-lead` | `autonomous-relay` |
 | Task exceeded the current ceiling | — | `team-escalation` |
 | Not sure who or what | — | `using-agent-dev-team` |
 
@@ -108,6 +109,16 @@ Escalate with a handoff packet:
 
 Delegate downward with a brief: goal, files in scope, pattern to follow, definition of
 done, out of scope, stop condition. Every field is required for a T0.
+
+## Autonomous runs
+
+An autonomous run works a ticket through the lifecycle with nobody available to answer at
+each stage boundary. Ceilings and triggers are unchanged; only the recipient of an
+escalation changes. A packet from T0, T1, or T2 routes to a terminal tier — usually
+`principal-engineer`, or the specialist the trigger names — which must decide rather than
+halt. Only a T3's own escalation reaches the human, and only on product intent, cost, or
+risk. The policy, the assumption ledger, and the required report shape are in
+`references/autonomous-run.md`.
 
 ## Non-negotiables
 

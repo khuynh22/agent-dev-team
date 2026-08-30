@@ -136,3 +136,8 @@ is one file that costs nothing until something points at it.
 Order a checklist by how often each item is the actual answer, not by category. The
 security checklist opens with trust boundaries and object-level authorization because those
 are what the findings usually are — not because they come first alphabetically.
+
+Not every reference is a checklist. `references/escalation-ladder.md` and
+`references/autonomous-run.md` are policy: they define who may do what, and who receives an
+escalation when nobody is watching. Policy earns a reference for the same reason a
+checklist does — it is cited from several places and must have exactly one copy.

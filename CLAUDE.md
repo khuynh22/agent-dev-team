@@ -3,6 +3,10 @@
 Read `AGENTS.md` in this repository. It is the entry point: roster, tiers, routing table,
 escalation protocol, and the non-negotiables that apply to every role.
 
+`/autopilot` runs the whole lifecycle unattended for a single ticket. The policy governing
+an unattended run — where escalations go, what gets tagged as an assumption, and the report
+it must emit — is `references/autonomous-run.md`.
+
 When working **on** this repository rather than with it:
 
 - `skills/*/SKILL.md` frontmatter must use only the six Agent Skills spec fields: `name`,

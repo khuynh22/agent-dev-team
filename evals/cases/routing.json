@@ -30,6 +30,19 @@
           ]
         },
         {
+          "owner": "autonomous-relay",
+          "top_k": 3,
+          "positive": [
+            "run this ticket end to end without stopping to ask me",
+            "take this issue from ticket to reviewed branch unattended",
+            "no human in the loop, just work the whole ticket and report back"
+          ],
+          "negative": [
+            { "prompt": "which team member should own this request", "owner": "using-agent-dev-team" },
+            { "prompt": "work through the task list one commit at a time", "owner": "incremental-delivery" }
+          ]
+        },
+        {
           "owner": "requirements-interview",
           "top_k": 3,
           "positive": [

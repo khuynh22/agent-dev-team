@@ -4,3 +4,5 @@ node_modules/
 evals/.work/
 evals/results/
 dist/
+docs/specs/
+docs/plans/
