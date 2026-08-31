@@ -34,11 +34,14 @@ command, or that changes the escalation ladder in a way that redirects existing 
 
 ### Changed
 
+- `scripts/validate.js` now checks the counts restated in `README.md`,
+  `docs/test-plan.md`, and both marketplace manifests against the repository. Those four
+  had drifted, and nothing else read them.
 - CI now also triggers on pushes to `master`. It previously watched `main` only, so pushes
   to the default branch produced no run and the status badge had nothing to report.
 - Descriptions for `data-modeling`, `data-pipeline`, `data-quality`, and `data-analysis`
   were tuned so the routing evals rank them first without displacing `code-review-pass` or
-  `performance-pass`. Rank-1 rate is 117 of 121 (97%), up from 90 of 94 (96%).
+  `performance-pass`. Rank-1 rate is 119 of 124 (96%), up from 90 of 94 (96%).
 
 ## [0.1.0] - 2026-08-26
 

@@ -143,12 +143,12 @@ node scripts/run-evals.js --behavioral intern-ceiling
 ```
 
 Four tiers, described in [`docs/test-plan.md`](docs/test-plan.md): static validation,
-routing evals, behavioral evals with planted traps, and a twelve-scenario manual pass with
-a per-tool scorecard.
+routing evals, behavioral evals with planted traps, and a 14 scenario manual pass
+with a per-tool scorecard.
 
 The routing evals are worth a look even if you never change anything — they are what keeps
-twenty skill descriptions distinguishable, and they caught four real description defects
-during initial development.
+26 skill descriptions distinguishable, and they caught four real description
+defects during initial development.
 
 ## Portability, concretely
 

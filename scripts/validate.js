@@ -342,6 +342,50 @@ for (const name of skills.keys()) {
         fail("AGENTS.md", `routing table is missing ${name}`);
 }
 
+// Counts are restated in prose and in the marketplace descriptions, where nothing else
+// checks them. They drifted twice before this check existed.
+const documentedCounts = {
+    "README.md": [
+        [/(\d+) role agents/, () => agents.size],
+        [/(\d+) portable workflow skills/, () => skills.size],
+    ],
+    "docs/test-plan.md": [
+        [/PASS — (\d+) agents/, () => agents.size],
+        [/(\d+) skills · /, () => skills.size],
+        [/(\d+) references · /, () => referenceFiles.size],
+        [/(\d+) commands`/, () => listFiles(commandDir, ".md").length],
+        [/tell the (\d+) skills apart/, () => skills.size],
+        [/tell the (\d+) agents apart/, () => agents.size],
+    ],
+    ".claude-plugin/marketplace.json": [
+        [/(\d+) role agents/, () => agents.size],
+        [/(\d+) portable workflow skills/, () => skills.size],
+    ],
+    ".agents/plugins/marketplace.json": [
+        [/(\d+) role agents/, () => agents.size],
+        [/(\d+) portable workflow skills/, () => skills.size],
+    ],
+};
+
+for (const [file, checks] of Object.entries(documentedCounts)) {
+    const full = path.join(ROOT, file);
+    if (!fs.existsSync(full)) {
+        fail(file, "missing");
+        continue;
+    }
+    const text = fs.readFileSync(full, "utf8");
+    for (const [pattern, actual] of checks) {
+        const match = text.match(pattern);
+        if (!match) {
+            fail(file, `no count matching ${pattern} — did the wording change?`);
+            continue;
+        }
+        const expected = actual();
+        if (Number(match[1]) !== expected)
+            fail(file, `says ${match[1]} where the repository has ${expected}: "${match[0]}"`);
+    }
+}
+
 // ---------------------------------------------------------------- report
 
 const summary = {

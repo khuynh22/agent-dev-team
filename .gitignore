@@ -6,3 +6,4 @@ evals/results/
 dist/
 docs/specs/
 docs/plans/
+.claude/settings.local.json

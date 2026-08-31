@@ -85,9 +85,10 @@ Put the trap in. A case where the right answer is the obvious answer tests nothi
 ## Pull requests
 
 Open one against `master`. The template lists the checks; the one that trips people up is
-that counts appear in three places — the `README.md` opening paragraph, the roster and
-routing tables in `AGENTS.md`, and the expected output in `docs/test-plan.md`. Adding a
-skill or agent means updating all three, and `scripts/validate.js` only catches the second.
+that counts appear in four places — the `README.md` opening paragraph, the roster and
+routing tables in `AGENTS.md`, the expected output in `docs/test-plan.md`, and the plugin
+description in both marketplace manifests. Adding a skill or agent means updating all four.
+`scripts/validate.js` catches every one of them, but only after you have run it.
 
 Add an entry under **Unreleased** in [`CHANGELOG.md`](CHANGELOG.md) for anything a user
 would notice: a new role, a renamed skill, a changed escalation path. Not for typos.

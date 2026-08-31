@@ -16,7 +16,7 @@ or dead ends, and nothing points at something that does not exist.
 node scripts/validate.js
 ```
 
-Expected: `PASS — 21 agents · 25 skills · 10 references · 8 commands`
+Expected: `PASS — 21 agents · 26 skills · 11 references · 9 commands`
 
 It fails on any of:
 
@@ -44,7 +44,7 @@ node scripts/build-commands.js --check
 
 ## Tier 1 — Routing evals
 
-**What it proves:** a router can tell the 25 skills apart, tell the 21 agents apart, and
+**What it proves:** a router can tell the 26 skills apart, tell the 21 agents apart, and
 send a realistic prompt to the right one.
 
 ```bash
@@ -52,7 +52,7 @@ node scripts/run-evals.js
 ```
 
 Expected: `PASS — routing evals clean`, with a rank-1 rate at or above 80%. Current
-baseline is 97% (117 of 121 positives rank first).
+baseline is 96% (119 of 124 positives rank first).
 
 Three ways it fails:
 
@@ -117,7 +117,7 @@ process section.
 
 **What it proves:** it works in the tool you actually use.
 
-Run the twelve scenarios below in each tool you care about. Each takes two to five
+Run the 14 scenarios below in each tool you care about. Each takes two to five
 minutes. Record pass or fail in the scorecard.
 
 ### Setup per tool
