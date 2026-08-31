@@ -9,6 +9,8 @@ command, or that changes the escalation ladder in a way that redirects existing 
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-30
+
 ### Added
 
 - Data track: `data-engineer` (T2), `analytics-engineer` (T1), `data-analyst` (T2), and
@@ -55,5 +57,6 @@ command, or that changes the escalation ladder in a way that redirects existing 
   traps, and a twelve-scenario manual pass with a per-tool scorecard.
 - Installers for Claude Code, Codex, Gemini CLI, Cursor, and Windsurf.
 
-[Unreleased]: https://github.com/khuynh22/agent-dev-team/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/khuynh22/agent-dev-team/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/khuynh22/agent-dev-team/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/khuynh22/agent-dev-team/releases/tag/v0.1.0

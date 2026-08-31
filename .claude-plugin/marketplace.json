@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "A tiered engineering team for AI coding tools.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "agent-dev-team",
       "source": "./",
       "description": "21 role agents across four tiers, 26 portable workflow skills, and an escalation protocol that keeps work at the right level.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "agent-dev-team contributors"
       },

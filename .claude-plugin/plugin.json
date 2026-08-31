@@ -1,6 +1,6 @@
 {
   "name": "agent-dev-team",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A tiered team of engineering agents and portable workflow skills: product, architecture, four implementation tiers, quality gates, production operations, firmware, frontend, and data.",
   "author": {
     "name": "agent-dev-team contributors"
