@@ -29,7 +29,7 @@ while [ $# -gt 0 ]; do
     --target) TARGETS+=("$2"); shift 2 ;;
     --uninstall) UNINSTALL=1; shift ;;
     --force) FORCE=1; shift ;;
-    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "unknown option: $1" >&2; exit 1 ;;
   esac
 done
