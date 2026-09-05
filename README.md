@@ -113,12 +113,19 @@ escalation trigger — under-specified delegation is the delegator's defect.
 ## Roster
 
 **Direction** — `product-manager`, `tech-lead`
+
 **Ladder** — `intern-engineer`, `software-engineer`, `senior-engineer`, `principal-engineer`
+
 **Gates** — `code-reviewer`, `test-engineer`, `security-auditor`, `performance-engineer`
+
 **Production** — `sre`, `incident-commander`
+
 **Firmware** — `firmware-engineer`, `board-bringup-engineer`
+
 **Frontend** — `frontend-engineer`, `ux-reviewer`
+
 **Data** — `data-engineer`, `analytics-engineer`, `data-analyst`, `ml-engineer`
+
 **Support** — `docs-engineer`
 
 ## Skills
