@@ -113,25 +113,38 @@ escalation trigger — under-specified delegation is the delegator's defect.
 ## Roster
 
 **Direction** — `product-manager`, `tech-lead`
+
 **Ladder** — `intern-engineer`, `software-engineer`, `senior-engineer`, `principal-engineer`
+
 **Gates** — `code-reviewer`, `test-engineer`, `security-auditor`, `performance-engineer`
+
 **Production** — `sre`, `incident-commander`
+
 **Firmware** — `firmware-engineer`, `board-bringup-engineer`
+
 **Frontend** — `frontend-engineer`, `ux-reviewer`
+
 **Data** — `data-engineer`, `analytics-engineer`, `data-analyst`, `ml-engineer`
+
 **Support** — `docs-engineer`
 
 ## Skills
 
 **Define** `requirements-interview` · `spec-writing`
+
 **Plan** `work-breakdown` · `architecture-decision` · `api-design`
+
 **Build** `tdd-loop` · `incremental-delivery` · `frontend-build` · `firmware-build` · `data-pipeline` · `data-modeling` · `ml-lifecycle`
+
 **Verify** `systematic-debugging` · `browser-verification`
+
 **Review** `code-review-pass` · `simplification-pass` · `security-hardening` · `performance-pass` · `data-quality` · `data-analysis`
+
 **Ship** `release-and-rollback` · `incident-response` · `documentation`
+
 **Meta** `using-agent-dev-team` · `team-escalation` · `autonomous-relay`
 
-Checklists in `references/` load only when a workflow points at one, so they cost nothing
+Checklists in `references/` load only when a workflow points to one, so they cost nothing
 until they are needed.
 
 ## Testing
@@ -157,7 +170,7 @@ The Agent Skills spec permits exactly six frontmatter fields: `name`, `descripti
 claude.ai upload and the Skills API. So:
 
 - `skills/` stays spec-pure. Tier and ownership data lives in `metadata`, which the spec
-  allows and hosts ignore. `scripts/validate.js` enforces this.
+  allows, and hosts ignore. `scripts/validate.js` enforces this.
 - `agents/` carries Claude Code fields (`model`, `effort`, `tools`, `color`), because it is
   a Claude Code file format, not a spec file. The **body** of each agent file is plain
   markdown that any tool can use.
