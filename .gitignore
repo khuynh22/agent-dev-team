@@ -7,3 +7,4 @@ dist/
 docs/specs/
 docs/plans/
 .claude/settings.local.json
+brag-output*/
