@@ -6,6 +6,8 @@
 [![dependencies: none](https://img.shields.io/badge/dependencies-none-brightgreen.svg)](package.json)
 [![Agent Skills spec](https://img.shields.io/badge/Agent%20Skills-spec--compliant-8A2BE2.svg)](https://agentskills.io)
 
+https://github.com/user-attachments/assets/d292dd20-e598-4637-9164-85ae849bfd52
+
 A tiered engineering team for AI coding tools. 21 role agents across four seniority
 tiers, 26 portable workflow skills, and an escalation protocol that keeps work at
 the right level instead of letting one undifferentiated assistant attempt everything.
