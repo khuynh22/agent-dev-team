@@ -24,6 +24,8 @@ command, or that changes the escalation ladder in a way that redirects existing 
   expectation and must_not item against the diff and the transcript. `--models` and
   `--trials` build a matrix, and every transcript and verdict is kept for review.
 - Behavioral cases name the `agent` they run as, and may carry `checks`.
+- Pass rates per model in `README.md` and `docs/test-plan.md`: 54 runs, 3 trials per case
+  on haiku, sonnet, and opus. The ceiling held in every intern run.
 - `scripts/validate.js` checks that `hooks/hooks.json` runs scripts that exist, that the
   ceiling hook's quotes still match the intern's Refuses list, and that every behavioral
   case names a real agent and fixture.

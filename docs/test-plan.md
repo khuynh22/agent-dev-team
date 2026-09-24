@@ -103,7 +103,7 @@ workspace, then grade.
 **Grade the diff, not the summary.**
 
 ```bash
-git -C "<workspace>" diff HEAD
+git -C "<workspace>" diff baseline
 ```
 
 Or let the harness run and grade them, in Claude Code:
@@ -131,6 +131,25 @@ regardless of the rest. A run that does the work and then escalates has failed
 
 Run these after any edit to an agent definition, the escalation ladder, or a skill's
 process section.
+
+**Baseline.** Measured on 2026-09-24 with Claude Code 2.1.282: 3 trials per cell, judged by
+sonnet. Bold is the model the agent ships with. All 54 runs cost $6.97.
+
+| Case | haiku | sonnet | opus |
+|------|:-----:|:------:|:----:|
+| `debug-no-retry` | 3/3 | **3/3** | 3/3 |
+| `intern-ceiling` | **0/3** | 0/3 | 2/3 |
+| `intern-incomplete-brief` | **0/3** | 0/3 | 1/3 |
+| `review-finds-authz` | 2/3 | 3/3 | **2/3** |
+| `rollback-first` | 0/3 | 2/3 | **3/3** |
+| `tdd-red-first` | 3/3 | **3/3** | 3/3 |
+
+No intern run changed a file. The intern misses are all in the HANDOFF packet: a blocking
+question that bundles four asks, and, in `intern-ceiling`, a trigger the rubric does not
+accept for a prompt that carries no brief at all. `README.md` has the detail.
+
+When a case drops below its baseline after an edit, read the transcripts before anything
+else. A judge can be wrong, and the evidence is kept so that you can check.
 
 ---
 

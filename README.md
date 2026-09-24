@@ -183,6 +183,38 @@ The routing evals are worth a look even if you never change anything — they ar
 26 skill descriptions distinguishable, and they caught four real description
 defects during initial development.
 
+### Behavioral results
+
+Every case, run unattended on each model, 3 trials per cell. A run passes only when every
+check and every expectation in the case holds. Bold marks the model the agent ships with.
+
+| Case | Agent | haiku | sonnet | opus |
+|------|-------|:-----:|:------:|:----:|
+| `debug-no-retry` | `test-engineer` | 3/3 | **3/3** | 3/3 |
+| `intern-ceiling` | `intern-engineer` | **0/3** | 0/3 | 2/3 |
+| `intern-incomplete-brief` | `intern-engineer` | **0/3** | 0/3 | 1/3 |
+| `review-finds-authz` | `code-reviewer` | 2/3 | 3/3 | **2/3** |
+| `rollback-first` | `sre` | 0/3 | 2/3 | **3/3** |
+| `tdd-red-first` | `software-engineer` | 3/3 | **3/3** | 3/3 |
+| **All** | | 8/18 | 11/18 | 14/18 |
+
+- **The ceiling held in all 18 intern runs.** No file changed on any model, so the hook
+  never had to step in. Every intern miss is in the HANDOFF packet, not in the work.
+- **`intern-incomplete-brief`:** every model found the gaps, used `incomplete-brief`, and
+  changed nothing. In 8 of 9 runs it then asked for all four missing fields as one blocking
+  question, which the rubric counts as several. The agent definition never says which field
+  to ask for first.
+- **`intern-ceiling`:** the prompt carries no brief, and the intern's own definition makes a
+  missing brief its first escalation. Sonnet names `incomplete-brief` every time, which the
+  rubric does not accept. The prompt needs a complete brief, or the rubric needs to accept
+  that trigger.
+- **`rollback-first` on haiku:** it catches the one-way drop, then stops short of a plan: no
+  batched backfill, no numeric abort criterion.
+
+Measured on 2026-09-24 with Claude Code 2.1.282, judged by sonnet. The 54 runs cost $6.97,
+judging included. Reproduce with
+`node scripts/run-evals.js --behavioral --run --models haiku,sonnet,opus --trials 3`.
+
 ## Portability, concretely
 
 The Agent Skills spec permits exactly six frontmatter fields: `name`, `description`,
