@@ -171,7 +171,7 @@ until they are needed.
 ```bash
 npm test                                          # validation, unit tests, routing evals; free
 node scripts/run-evals.js --behavioral            # list behavioral cases
-node scripts/run-evals.js --behavioral intern-ceiling
+node scripts/run-evals.js --behavioral --run      # run them against Claude Code and grade them
 ```
 
 Four tiers, described in [`docs/test-plan.md`](docs/test-plan.md): static validation,

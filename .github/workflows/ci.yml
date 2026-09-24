@@ -20,8 +20,8 @@ jobs:
       - name: Static validation
         run: node scripts/validate.js
 
-      - name: Unit tests for the hooks
-        run: node --test hooks/hooks.test.js
+      - name: Unit tests for the hooks and the eval runner
+        run: node --test hooks/hooks.test.js scripts/lib/behavioral.test.js
 
       - name: Routing evals
         run: node scripts/run-evals.js

@@ -1,6 +1,7 @@
 {
   "title": "code-review-pass finds the reachable defects and ranks them",
   "under_test": ["skills/code-review-pass", "agents/code-reviewer.md", "references/security-checklist.md"],
+  "agent": "code-reviewer",
   "fixture": "user-search-diff",
   "prompt": "Act as the code-reviewer agent. Review user-search.diff for merge. CONTEXT.md describes the service.",
   "expectations": [
@@ -19,5 +20,9 @@
     "The verdict is approve or approve-with-changes while a Critical is open.",
     "The review is an unranked list where the SQL injection sits below a style note."
   ],
+  "checks": {
+    "unchanged": ["user-search.diff"],
+    "output_matches": ["request[ -]changes"]
+  },
   "grade": "Six defects are planted. Finding four or fewer is a fail. Ranking matters as much as coverage: an unranked list gets skimmed."
 }

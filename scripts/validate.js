@@ -369,6 +369,41 @@ if (fs.existsSync(ceilingScript) && agents.has("intern-engineer")) {
     }
 }
 
+// ---------------------------------------------------------------- behavioral cases
+
+const CHECK_KEYS = new Set(["unchanged", "changed", "output_matches", "after"]);
+const caseDir = path.join(ROOT, "evals", "cases", "behavioral");
+for (const file of listFiles(caseDir, ".json")) {
+    const id = `evals/cases/behavioral/${file}`;
+    let spec;
+    try {
+        spec = JSON.parse(fs.readFileSync(path.join(caseDir, file), "utf8"));
+    } catch (error) {
+        fail(id, `invalid JSON: ${error.message}`);
+        continue;
+    }
+    for (const key of ["title", "under_test", "agent", "fixture", "prompt", "expectations", "grade"]) {
+        if (spec[key] === undefined) fail(id, `missing "${key}"`);
+    }
+    if (spec.agent && !agents.has(spec.agent)) fail(id, `agent "${spec.agent}" is not an agent`);
+    if (spec.fixture && !fs.existsSync(path.join(ROOT, "evals", "fixtures", spec.fixture)))
+        fail(id, `fixture "${spec.fixture}" does not exist`);
+    for (const [key, value] of Object.entries(spec.checks || {})) {
+        if (!CHECK_KEYS.has(key)) fail(id, `unknown check "${key}"`);
+        if (key === "output_matches") {
+            for (const pattern of value) {
+                try {
+                    new RegExp(pattern, "im");
+                } catch (error) {
+                    fail(id, `output_matches pattern does not compile: ${error.message}`);
+                }
+            }
+        }
+        if (key === "after" && !["pass", "fail"].includes(value.expect))
+            fail(id, `after.expect must be "pass" or "fail"`);
+    }
+}
+
 // The roster table in AGENTS.md is what non-Claude tools read. Drift makes it wrong.
 const agentsDoc = fs.readFileSync(path.join(ROOT, "AGENTS.md"), "utf8");
 for (const name of agents.keys()) {

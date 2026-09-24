@@ -6,11 +6,12 @@
   "private": false,
   "type": "commonjs",
   "scripts": {
-    "test": "node scripts/validate.js && node --test hooks/hooks.test.js && node scripts/run-evals.js && node scripts/build-commands.js --check",
+    "test": "node scripts/validate.js && node --test hooks/hooks.test.js scripts/lib/behavioral.test.js && node scripts/run-evals.js && node scripts/build-commands.js --check",
     "validate": "node scripts/validate.js",
-    "test:unit": "node --test hooks/hooks.test.js",
+    "test:unit": "node --test hooks/hooks.test.js scripts/lib/behavioral.test.js",
     "evals": "node scripts/run-evals.js",
     "evals:behavioral": "node scripts/run-evals.js --behavioral",
+    "evals:run": "node scripts/run-evals.js --behavioral --run",
     "build:commands": "node scripts/build-commands.js"
   },
   "engines": {

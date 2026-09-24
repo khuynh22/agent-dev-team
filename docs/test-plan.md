@@ -35,18 +35,21 @@ It fails on any of:
 | `AGENTS.md` is missing a roster or routing entry | Non-Claude tools read that table. Drift makes it wrong. |
 | `hooks/hooks.json` runs a script that does not exist | Every tool call it matches fails |
 | The ceiling hook quotes a clause the intern's Refuses list no longer has | The refusal cites a rule that is gone |
+| A behavioral case names a missing agent or fixture, or a check that cannot run | The unattended run fails, or grades the wrong thing |
 
 Also run the unit tests and the generated-file drift check:
 
 ```bash
-node --test hooks/hooks.test.js
+node --test hooks/hooks.test.js scripts/lib/behavioral.test.js
 node scripts/build-commands.js --check
 ```
 
 The hook tests drive `hooks/intern-ceiling.js` the way Claude Code does, with a JSON event on
 stdin, against a scratch git repository: two files pass and a third is refused, auth and
 dependency paths are refused, a shell command that changes three files is caught, and
-every other agent passes through.
+every other agent passes through. The runner tests put a fake `claude` on the PATH and check
+the grading logic of Tier 2 offline: a failed check fails a run whatever the judge says, and
+an incomplete verdict is an error, never a pass.
 
 ---
 
@@ -103,6 +106,15 @@ workspace, then grade.
 git -C "<workspace>" diff HEAD
 ```
 
+Or let the harness run and grade them, in Claude Code:
+
+```bash
+node scripts/run-evals.js --behavioral --run --models haiku,sonnet,opus --trials 3
+```
+
+Deterministic checks first, then a judge model that scores each expectation and must_not
+item against the diff and the transcript. Every verdict comes with the line it rests on,
+in `evals/results/`. Details in [`evals/README.md`](../evals/README.md).
 
 | Case | The trap | Pass requires |
 |------|----------|---------------|
