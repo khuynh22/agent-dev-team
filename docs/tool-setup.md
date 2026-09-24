@@ -54,6 +54,17 @@ relative to the plugin, which is never your project. `hooks/plugin-root.js` adds
 naming the install path at session start, and when one of this plugin's subagents starts.
 Without it, an agent looking for the HANDOFF packet finds nothing and improvises one.
 
+The checklists sit outside your project, so the first read of one asks for permission. For
+a run nobody is watching, `/autopilot` included, allow it up front in your settings, with
+the path that session-start line names:
+
+```json
+{ "permissions": { "allow": ["Read(//path/to/agent-dev-team/references/**)"] } }
+```
+
+A denied read is not silent: the agent says it could not open the checklist, and then
+improvises the packet.
+
 Each matched tool call starts a short Node process: about 50 ms, or 65 ms when the caller
 is the intern and the hook snapshots the working tree.
 

@@ -44,7 +44,8 @@ names the HANDOFF trigger to use:
 T0 ceiling: src/permissions.js is on an authentication, authorization, secrets, or crypto
 path. intern-engineer refuses to: Touch authentication, authorization, secrets, or
 cryptography. Stop here, change nothing else, and emit a HANDOFF to software-engineer with
-Trigger: security-surface.
+Trigger: security-surface. This check is mechanical (hooks/intern-ceiling.js); confidence
+does not lift it.
 ```
 
 ## Install
