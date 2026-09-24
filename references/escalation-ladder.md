@@ -75,7 +75,7 @@ verbatim; the receiving agent parses it.
 ## HANDOFF
 - **From:** <agent-name> (T<n>)
 - **To:** <agent-name> (T<n>)
-- **Trigger:** <one of: irreversibility | blast-radius | security-surface | unknown-unknowns | contract-change | cost>
+- **Trigger:** <one of: irreversibility | blast-radius | security-surface | unknown-unknowns | contract-change | cost | incomplete-brief>
 - **Task as given:** <one sentence>
 - **Done so far:** <what is committed or in the working tree; empty is a valid answer>
 - **Files touched:** <path:line list, or "none">
