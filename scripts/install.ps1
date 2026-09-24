@@ -134,6 +134,7 @@ function Install-Copy {
     Write-Ok "$skills skills -> $skillsDest (prefixed $Prefix)"
     Write-Ok "$agents agents -> $agentsDest"
     Write-Warn 'Agent names are not prefixed. If you already have an agent with one of these names, yours is overwritten.'
+    Write-Warn 'The intern ceiling hook runs only in plugin mode. docs/tool-setup.md shows how to add it to settings.json by hand.'
 }
 
 function Uninstall-Copy {

@@ -331,6 +331,44 @@ for (const entry of [].concat(pluginManifest.commands || [])) {
     }
 }
 
+// ---------------------------------------------------------------- hooks
+
+// Claude Code loads hooks/hooks.json from the plugin root. A command pointing at a script
+// that is not there fails on every tool call it matches.
+const hooksFile = path.join(ROOT, "hooks", "hooks.json");
+if (fs.existsSync(hooksFile)) {
+    let hooksConfig = null;
+    try {
+        hooksConfig = JSON.parse(fs.readFileSync(hooksFile, "utf8"));
+    } catch (error) {
+        fail("hooks/hooks.json", `invalid JSON: ${error.message}`);
+    }
+    for (const groups of Object.values((hooksConfig && hooksConfig.hooks) || {})) {
+        for (const group of groups) {
+            for (const hook of group.hooks || []) {
+                for (const match of String(hook.command).matchAll(/\$\{CLAUDE_PLUGIN_ROOT\}\/([^"\s]+)/g)) {
+                    if (!fs.existsSync(path.join(ROOT, match[1])))
+                        fail("hooks/hooks.json", `runs ${match[1]}, which does not exist`);
+                }
+            }
+        }
+    }
+}
+
+// The ceiling hook quotes the intern's Refuses list when it blocks something. If the agent
+// file is reworded, the quotes must follow, or the refusal cites a rule that is gone.
+const ceilingScript = path.join(ROOT, "hooks", "intern-ceiling.js");
+if (fs.existsSync(ceilingScript) && agents.has("intern-engineer")) {
+    const { RULES } = require(ceilingScript);
+    const internBody = fs
+        .readFileSync(path.join(ROOT, "agents", "intern-engineer.md"), "utf8")
+        .replace(/\*\*/g, "");
+    for (const { clause } of Object.values(RULES)) {
+        if (!internBody.includes(`- ${clause}`))
+            fail("hooks/intern-ceiling.js", `quotes "${clause}", which is not in the intern-engineer Refuses list`);
+    }
+}
+
 // The roster table in AGENTS.md is what non-Claude tools read. Drift makes it wrong.
 const agentsDoc = fs.readFileSync(path.join(ROOT, "AGENTS.md"), "utf8");
 for (const name of agents.keys()) {

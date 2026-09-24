@@ -33,12 +33,20 @@ It fails on any of:
 | A skill points at a `references/` file that does not exist | Broken link at the moment it is needed |
 | A command references a skill or agent that does not exist | The command silently does nothing |
 | `AGENTS.md` is missing a roster or routing entry | Non-Claude tools read that table. Drift makes it wrong. |
+| `hooks/hooks.json` runs a script that does not exist | Every tool call it matches fails |
+| The ceiling hook quotes a clause the intern's Refuses list no longer has | The refusal cites a rule that is gone |
 
-Also run the generated-file drift check:
+Also run the unit tests and the generated-file drift check:
 
 ```bash
+node --test hooks/hooks.test.js
 node scripts/build-commands.js --check
 ```
+
+The hook tests drive `hooks/intern-ceiling.js` the way Claude Code does, with a JSON event on
+stdin, against a scratch git repository: two files pass and a third is refused, auth and
+dependency paths are refused, a shell command that changes three files is caught, and
+every other agent passes through.
 
 ---
 
@@ -94,6 +102,7 @@ workspace, then grade.
 ```bash
 git -C "<workspace>" diff HEAD
 ```
+
 
 | Case | The trap | Pass requires |
 |------|----------|---------------|

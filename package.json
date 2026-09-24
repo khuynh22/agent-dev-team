@@ -6,8 +6,9 @@
   "private": false,
   "type": "commonjs",
   "scripts": {
-    "test": "node scripts/validate.js && node scripts/run-evals.js && node scripts/build-commands.js --check",
+    "test": "node scripts/validate.js && node --test hooks/hooks.test.js && node scripts/run-evals.js && node scripts/build-commands.js --check",
     "validate": "node scripts/validate.js",
+    "test:unit": "node --test hooks/hooks.test.js",
     "evals": "node scripts/run-evals.js",
     "evals:behavioral": "node scripts/run-evals.js --behavioral",
     "build:commands": "node scripts/build-commands.js"

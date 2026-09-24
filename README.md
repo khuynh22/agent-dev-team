@@ -34,6 +34,19 @@ This encodes that as a ceiling per role, and a structured handoff when the ceili
 Confidence never raises a ceiling. A T0 that is *sure* about an auth change is still a T0
 touching auth.
 
+In Claude Code the mechanical part of that ceiling is enforced as well as stated. A hook
+refuses the intern's edit to a third file, or to anything on an auth, secrets, crypto,
+migration, schema, or dependency path, and refuses a command that adds a dependency. A file
+changed through the shell is caught by a git snapshot. The refusal quotes the rule and
+names the HANDOFF trigger to use:
+
+```
+T0 ceiling: src/permissions.js is on an authentication, authorization, secrets, or crypto
+path. intern-engineer refuses to: Touch authentication, authorization, secrets, or
+cryptography. Stop here, change nothing else, and emit a HANDOFF to software-engineer with
+Trigger: security-surface.
+```
+
 ## Install
 
 ### Claude Code
@@ -53,6 +66,10 @@ pwsh scripts/install.ps1
 This registers the repository as a local marketplace and installs it as a plugin, so
 everything is namespaced (`/agent-dev-team:team`) and uninstalling is one command. Add
 `--mode copy` to place files in `~/.claude/skills/` and `~/.claude/agents/` instead.
+
+Plugin mode also loads [`hooks/`](hooks/): the enforced T0 ceiling, and one line telling
+agents where their checklists live. Details in
+[`docs/tool-setup.md`](docs/tool-setup.md#hooks).
 
 ### Other tools
 
@@ -152,8 +169,8 @@ until they are needed.
 ## Testing
 
 ```bash
-npm test                                     # static validation + routing evals, free
-node scripts/run-evals.js --behavioral       # list behavioral cases
+npm test                                          # validation, unit tests, routing evals; free
+node scripts/run-evals.js --behavioral            # list behavioral cases
 node scripts/run-evals.js --behavioral intern-ceiling
 ```
 
@@ -178,9 +195,10 @@ claude.ai upload and the Skills API. So:
   markdown that any tool can use.
 - `AGENTS.md` carries everything a tool needs with no file format at all.
 
-The one thing Claude Code does that others cannot is spawn subagents automatically.
-Everywhere else, a tier is a persona the model adopts and a protocol it follows — which is
-text, and text travels.
+Claude Code does two things the others cannot. It spawns subagents automatically, and it
+runs hooks, so there the intern's ceiling is enforced by `hooks/intern-ceiling.js` as well as
+stated. Everywhere else, a tier is a persona the model adopts and a protocol it follows.
+That is text, and text travels.
 
 ## Contributing
 
