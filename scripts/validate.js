@@ -391,7 +391,7 @@ for (const file of listFiles(caseDir, ".json")) {
     for (const [key, value] of Object.entries(spec.checks || {})) {
         if (!CHECK_KEYS.has(key)) fail(id, `unknown check "${key}"`);
         if (key === "output_matches") {
-            for (const pattern of value) {
+            for (const pattern of [].concat(value)) {
                 try {
                     new RegExp(pattern, "im");
                 } catch (error) {

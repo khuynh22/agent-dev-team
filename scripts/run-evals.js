@@ -158,6 +158,10 @@ async function runBehavioral(args, ids) {
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const models = option(args, '--models', 'shipped').split(',').map((m) => m.trim()).filter(Boolean);
   const trials = Number(option(args, '--trials', 1));
+  if (!models.length || !(trials >= 1)) {
+    console.error('--models needs at least one alias (or "shipped"), and --trials at least 1.');
+    process.exit(1);
+  }
   const options = {
     judge: option(args, '--judge', 'sonnet'),
     budget: Number(option(args, '--budget', 3)),
@@ -173,6 +177,7 @@ async function runBehavioral(args, ids) {
       for (let trial = 1; trial <= trials; trial++) tasks.push(() => behavioral.runOne({ id, model, trial, options }));
     }
   }
+  fs.mkdirSync(options.out, { recursive: true });
   const rel = path.relative(process.cwd(), options.out) || '.';
   console.log(`${tasks.length} run(s): ${ids.length} case(s) × ${models.join(', ')} × ${trials} trial(s). Judge: ${options.judge}. Hooks: ${options.noHooks ? 'off' : 'on'}.`);
   console.log(`Transcripts, diffs, and verdicts go to ${rel}\n`);
