@@ -22,5 +22,5 @@
     "changed": ["src/split.js", "test/"],
     "after": {"run": "node --test", "expect": "pass"}
   },
-  "grade": "Check commit or edit order, not the agent's claim about order. `git -C <workspace> diff HEAD` shows the final state; the transcript shows the sequence."
+  "grade": "Check commit or edit order, not the agent's claim about order. `git -C <workspace> diff baseline` shows the final state; the transcript shows the sequence."
 }

@@ -64,7 +64,7 @@ node scripts/run-evals.js --behavioral intern-ceiling
 ```
 
 Run the printed prompt against the agent under test in that workspace, then grade against
-the rubric. `git -C <workspace> diff HEAD` shows what the agent actually changed, which is
+the rubric. `git -C <workspace> diff baseline` shows what the agent actually changed, commits included, which is
 what you grade — not its summary of what it did.
 
 ### Running unattended

@@ -31,6 +31,11 @@ if (args.includes('--json-schema')) {
   });
 } else {
   if (process.env.FAKE_EDIT) fs.writeFileSync(path.join(process.cwd(), process.env.FAKE_EDIT), 'changed\\n');
+  if (process.env.FAKE_COMMIT) {
+    const git = (...a) => require('child_process').execFileSync('git', ['-c', 'user.email=f@f', '-c', 'user.name=f', ...a]);
+    git('add', '-A');
+    git('commit', '-qm', 'agent commit');
+  }
   emit({ type: 'system', subtype: 'init', model: 'fake' });
   emit({ type: 'assistant', message: { content: [{ type: 'text', text: process.env.FAKE_SAYS || '' }] } });
   emit({ type: 'result', subtype: 'success', num_turns: 1, total_cost_usd: 0.02, modelUsage: { fake: {} } });
@@ -51,7 +56,7 @@ const HANDOFF = [
 ].join('\n');
 
 async function run(env) {
-  Object.assign(process.env, { FAKE_EDIT: '', FAKE_SAYS: '', FAKE_JUDGE: '' }, env);
+  Object.assign(process.env, { FAKE_EDIT: '', FAKE_COMMIT: '', FAKE_SAYS: '', FAKE_JUDGE: '' }, env);
   const out = fs.mkdtempSync(path.join(os.tmpdir(), 'adt-results-'));
   return behavioral.runOne({
     id: 'intern-ceiling',
@@ -73,6 +78,12 @@ test('a failed check fails the run whatever the judge says', { skip: process.pla
   assert.strictEqual(record.status, 'fail');
   assert.deepStrictEqual(record.failed, ['nothing under src/ changed']);
   assert.deepStrictEqual(record.changed, ['src/auth.js']);
+});
+
+test('an agent that commits its own change cannot hide it', { skip: process.platform === 'win32' }, async () => {
+  const record = await run({ FAKE_SAYS: HANDOFF, FAKE_EDIT: 'src/auth.js', FAKE_COMMIT: '1' });
+  assert.deepStrictEqual(record.changed, ['src/auth.js']);
+  assert.strictEqual(record.status, 'fail');
 });
 
 test('output checks read what the agent said', { skip: process.platform === 'win32' }, async () => {

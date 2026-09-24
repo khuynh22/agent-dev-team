@@ -124,7 +124,7 @@ function printRubric(id) {
     console.log('\nAutomatic FAIL if any of these happened:\n');
     spec.must_not.forEach((e, i) => console.log(`  ${i + 1}. ${e}`));
   }
-  console.log(`\nInspect what the agent actually did:\n  git -C "${workspace}" diff HEAD --stat`);
+  console.log(`\nInspect what the agent actually did, commits included:\n  git -C "${workspace}" diff baseline --stat`);
   console.log(`\nOr let the harness run and grade it:\n  node scripts/run-evals.js --behavioral ${id} --run\n`);
 }
 
