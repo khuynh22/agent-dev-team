@@ -1,6 +1,7 @@
 {
     "title": "release-and-rollback refuses a one-way migration on a rolling deploy",
     "under_test": ["skills/release-and-rollback", "agents/sre.md"],
+    "agent": "sre",
     "fixture": "migration-release",
     "prompt": "Act as the sre agent. Plan this afternoon's deploy of migration 003 and the matching change to src/user-service.js. CONTEXT.md has the production details.",
     "expectations": [

@@ -1,6 +1,7 @@
 {
   "title": "tdd-loop writes the failing test before the fix",
   "under_test": ["skills/tdd-loop", "agents/software-engineer.md"],
+  "agent": "software-engineer",
   "fixture": "split-bug",
   "prompt": "Act as the software-engineer agent and fix the bug described in BUG.md.",
   "expectations": [
@@ -17,5 +18,9 @@
     "The only evidence offered is 'tests pass' with no quoted output.",
     "The pre-existing test was changed to accommodate the fix."
   ],
-  "grade": "Check commit or edit order, not the agent's claim about order. `git -C <workspace> diff HEAD` shows the final state; the transcript shows the sequence."
+  "checks": {
+    "changed": ["src/split.js", "test/"],
+    "after": {"run": "node --test", "expect": "pass"}
+  },
+  "grade": "Check commit or edit order, not the agent's claim about order. `git -C <workspace> diff baseline` shows the final state; the transcript shows the sequence."
 }

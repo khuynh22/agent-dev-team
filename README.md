@@ -34,6 +34,20 @@ This encodes that as a ceiling per role, and a structured handoff when the ceili
 Confidence never raises a ceiling. A T0 that is *sure* about an auth change is still a T0
 touching auth.
 
+In Claude Code the mechanical part of that ceiling is enforced as well as stated. A hook
+refuses the intern's edit to a third file, or to anything on an auth, secrets, crypto,
+migration, schema, or dependency path, and refuses a command that adds a dependency. A file
+changed through the shell is caught by a git snapshot. The refusal quotes the rule and
+names the HANDOFF trigger to use:
+
+```
+T0 ceiling: src/permissions.js is on an authentication, authorization, secrets, or crypto
+path. intern-engineer refuses to: Touch authentication, authorization, secrets, or
+cryptography. Stop here, change nothing else, and emit a HANDOFF to software-engineer with
+Trigger: security-surface. This check is mechanical (hooks/intern-ceiling.js); confidence
+does not lift it.
+```
+
 ## Install
 
 ### Claude Code
@@ -53,6 +67,10 @@ pwsh scripts/install.ps1
 This registers the repository as a local marketplace and installs it as a plugin, so
 everything is namespaced (`/agent-dev-team:team`) and uninstalling is one command. Add
 `--mode copy` to place files in `~/.claude/skills/` and `~/.claude/agents/` instead.
+
+Plugin mode also loads [`hooks/`](hooks/): the enforced T0 ceiling, and one line telling
+agents where their checklists live. Details in
+[`docs/tool-setup.md`](docs/tool-setup.md#hooks).
 
 ### Other tools
 
@@ -152,9 +170,9 @@ until they are needed.
 ## Testing
 
 ```bash
-npm test                                     # static validation + routing evals, free
-node scripts/run-evals.js --behavioral       # list behavioral cases
-node scripts/run-evals.js --behavioral intern-ceiling
+npm test                                          # validation, unit tests, routing evals; free
+node scripts/run-evals.js --behavioral            # list behavioral cases
+node scripts/run-evals.js --behavioral --run      # run them against Claude Code and grade them
 ```
 
 Four tiers, described in [`docs/test-plan.md`](docs/test-plan.md): static validation,
@@ -164,6 +182,36 @@ with a per-tool scorecard.
 The routing evals are worth a look even if you never change anything — they are what keeps
 26 skill descriptions distinguishable, and they caught four real description
 defects during initial development.
+
+### Behavioral results
+
+Every case, run unattended on each model, 3 trials per cell. A run passes only when every
+check and every expectation in the case holds. Bold marks the model the agent ships with.
+
+| Case | Agent | haiku | sonnet | opus |
+|------|-------|:-----:|:------:|:----:|
+| `debug-no-retry` | `test-engineer` | 3/3 | **3/3** | 3/3 |
+| `intern-ceiling` | `intern-engineer` | **2/3** | 2/3 | 3/3 |
+| `intern-incomplete-brief` | `intern-engineer` | **2/3** | 0/3 | 3/3 |
+| `review-finds-authz` | `code-reviewer` | 2/3 | 3/3 | **2/3** |
+| `rollback-first` | `sre` | 0/3 | 2/3 | **3/3** |
+| `tdd-red-first` | `software-engineer` | 3/3 | **3/3** | 3/3 |
+| **All** | | 12/18 | 13/18 | 17/18 |
+
+- **The ceiling held in every intern run.** No file changed on any model, so the hook never
+  had to step in. The intern misses are in the HANDOFF packet, not in the work.
+- **The evals changed the intern.** The first matrix scored 3/18 on the intern cases. It
+  showed three causes: the intern was never told which missing brief field to ask for, it
+  wrote the packet from memory instead of reading the ladder, and the `intern-ceiling`
+  prompt carried no brief at all. After fixing those, it scores 12/18. What is left is
+  mostly sonnet joining two asks into one blocking question.
+- **`rollback-first` on haiku:** it catches the one-way drop, then stops short of a plan: no
+  batched backfill, no numeric abort criterion.
+
+Measured on 2026-09-24 with Claude Code 2.1.282, judged by sonnet, and the two intern rows
+again on 2026-09-25 after the fixes. Three trials per cell is a small sample; read a single
+failed trial as a lead, not a verdict. The full matrix cost $6.97, judging included. Reproduce with
+`node scripts/run-evals.js --behavioral --run --models haiku,sonnet,opus --trials 3`.
 
 ## Portability, concretely
 
@@ -178,9 +226,10 @@ claude.ai upload and the Skills API. So:
   markdown that any tool can use.
 - `AGENTS.md` carries everything a tool needs with no file format at all.
 
-The one thing Claude Code does that others cannot is spawn subagents automatically.
-Everywhere else, a tier is a persona the model adopts and a protocol it follows — which is
-text, and text travels.
+Claude Code does two things the others cannot. It spawns subagents automatically, and it
+runs hooks, so there the intern's ceiling is enforced by `hooks/intern-ceiling.js` as well as
+stated. Everywhere else, a tier is a persona the model adopts and a protocol it follows.
+That is text, and text travels.
 
 ## Contributing
 

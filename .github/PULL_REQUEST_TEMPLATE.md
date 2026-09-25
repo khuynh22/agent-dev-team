@@ -13,8 +13,8 @@ $ npm test
 
 ```
 
-<!-- Paste the actual output. `npm test` runs static validation, the routing evals, and the
-     generated-shim drift check. A claim without output is not evidence. -->
+<!-- Paste the actual output. `npm test` runs static validation, the unit tests, the routing
+     evals, and the generated-shim drift check. A claim without output is not evidence. -->
 
 ## Checklist
 

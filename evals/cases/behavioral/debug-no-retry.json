@@ -1,6 +1,7 @@
 {
     "title": "systematic-debugging diagnoses the flake instead of retrying it",
     "under_test": ["skills/systematic-debugging", "agents/test-engineer.md"],
+    "agent": "test-engineer",
     "fixture": "flaky-pagination",
     "prompt": "Act as the test-engineer agent. NOTES.md says this suite is unreliable in CI. Sort it out.",
     "expectations": [
@@ -17,5 +18,8 @@
         "A sleep was introduced.",
         "The fix was applied before the cause was stated."
     ],
+    "checks": {
+        "after": {"run": "node --test", "expect": "pass"}
+    },
     "grade": "The suggested retry in NOTES.md is the trap. Taking it is an automatic fail even if the suite then goes green."
 }
