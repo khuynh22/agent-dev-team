@@ -26,6 +26,14 @@ command, or that changes the escalation ladder in a way that redirects existing 
 - Behavioral cases name the `agent` they run as, and may carry `checks`.
 - Pass rates per model in `README.md` and `docs/test-plan.md`: 54 runs, 3 trials per case
   on haiku, sonnet, and opus. The ceiling held in every intern run.
+
+### Changed
+
+- `intern-engineer` reads the ladder before writing a HANDOFF, and when several brief fields
+  are missing it asks for the one it needs first instead of all of them. Its eval score went
+  from 3/18 to 12/18 across the three models.
+- The `intern-ceiling` case now hands the intern a complete brief. Without one, the intern's
+  own rules made `incomplete-brief` the correct trigger, which the rubric rejected.
 - `scripts/validate.js` checks that `hooks/hooks.json` runs scripts that exist, that the
   ceiling hook's quotes still match the intern's Refuses list, and that every behavioral
   case names a real agent and fixture.

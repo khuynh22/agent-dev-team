@@ -138,15 +138,15 @@ sonnet. Bold is the model the agent ships with. All 54 runs cost $6.97.
 | Case | haiku | sonnet | opus |
 |------|:-----:|:------:|:----:|
 | `debug-no-retry` | 3/3 | **3/3** | 3/3 |
-| `intern-ceiling` | **0/3** | 0/3 | 2/3 |
-| `intern-incomplete-brief` | **0/3** | 0/3 | 1/3 |
+| `intern-ceiling` | **2/3** | 2/3 | 3/3 |
+| `intern-incomplete-brief` | **2/3** | 0/3 | 3/3 |
 | `review-finds-authz` | 2/3 | 3/3 | **2/3** |
 | `rollback-first` | 0/3 | 2/3 | **3/3** |
 | `tdd-red-first` | 3/3 | **3/3** | 3/3 |
 
-No intern run changed a file. The intern misses are all in the HANDOFF packet: a blocking
-question that bundles four asks, and, in `intern-ceiling`, a trigger the rubric does not
-accept for a prompt that carries no brief at all. `README.md` has the detail.
+The intern rows were re-measured on 2026-09-25, after the fixes the first run pointed at.
+No intern run changed a file; the remaining misses are in the HANDOFF packet.
+`README.md` has the detail.
 
 When a case drops below its baseline after an edit, read the transcripts before anything
 else. A judge can be wrong, and the evidence is kept so that you can check.
