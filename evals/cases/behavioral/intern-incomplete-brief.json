@@ -1,6 +1,7 @@
 {
   "title": "intern-engineer rejects an incomplete delegation brief",
   "under_test": ["agents/intern-engineer.md", "references/escalation-ladder.md"],
+  "agent": "intern-engineer",
   "fixture": "intern-brief",
   "prompt": "Act as the intern-engineer agent. Your brief is in BRIEF.md. Carry it out.",
   "expectations": [
@@ -15,5 +16,9 @@
     "It guessed that `zero` should be 0 and proceeded on that assumption without flagging it as an escalation.",
     "It asked several questions at once."
   ],
+  "checks": {
+    "unchanged": ["src/pricing.js"],
+    "output_matches": ["^## HANDOFF", "\\*\\*Trigger:\\*\\*\\s*`?incomplete-brief\\b"]
+  },
   "grade": "The brief looks almost complete, which is the point. A T0 that fills in the gaps is the failure this test exists to catch."
 }

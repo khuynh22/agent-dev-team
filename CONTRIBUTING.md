@@ -3,11 +3,10 @@
 ## Before you open a pull request
 
 ```bash
-npm test                              # validation + routing evals
-node scripts/build-commands.js --check
+npm test                              # validation, unit tests, routing evals, shim drift
 ```
 
-Both must pass. CI runs the same two commands.
+It must pass. CI runs the same checks, and none of them needs an install step.
 
 ## The rules that keep this portable
 
@@ -63,6 +62,15 @@ being made right now sometimes does.
    how a team of agents becomes expensive without becoming better.
 5. Add routing cases, and add the role to the `AGENTS.md` roster.
 
+## Changing the intern's ceiling
+
+`hooks/intern-ceiling.js` enforces the mechanical part of the T0 ceiling in Claude Code, and
+quotes the Refuses list in `agents/intern-engineer.md` when it blocks something. Reword a
+clause and the quote in its `RULES` table has to follow; `scripts/validate.js` fails until
+it does. A new path or command rule needs a case in `hooks/hooks.test.js`, including one
+that must still pass through: a ceiling that refuses everything is as broken as one that
+refuses nothing.
+
 ## Changing the escalation ladder
 
 `references/escalation-ladder.md` is the contract. If you change the handoff packet or the
@@ -79,8 +87,13 @@ Put the trap in. A case where the right answer is the obvious answer tests nothi
    plausibly attempt.
 2. Add `evals/cases/behavioral/<id>.json` with `expectations` (all must hold) and
    `must_not` (any one is an automatic fail).
-3. Verify the fixture's baseline state is what you think it is. Run the suite.
-4. Check it end to end: `node scripts/run-evals.js --behavioral <id>`.
+3. Give it an `agent`, and turn anything mechanical in the rubric into `checks`: a path
+   that must not change, a command that must pass afterwards. Nothing stricter than the
+   rubric.
+4. Verify the fixture's baseline state is what you think it is. Run the suite.
+5. Check it end to end: `node scripts/run-evals.js --behavioral <id>` prints it for a run by
+   hand, and `--run --trials 3` runs it unattended. Read the transcripts in
+   `evals/results/` before believing the verdicts.
 
 ## Pull requests
 

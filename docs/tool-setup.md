@@ -31,6 +31,56 @@ name is overwritten).
 Uninstall: `./scripts/install.sh --uninstall`, adding `--mode copy` if that is how you
 installed.
 
+### Hooks
+
+Plugin mode also loads `hooks/hooks.json`, which does two things.
+
+**It enforces the T0 ceiling.** `hooks/intern-ceiling.js` runs around the intern's Edit,
+Write, NotebookEdit, and Bash calls. It refuses a third file, a path that looks like auth,
+secrets, crypto, a migration, a schema, or a dependency manifest, and a command that adds
+or upgrades a dependency. A shell command is compared against a git snapshot taken just
+before it, so a file changed through Bash still counts, and the intern is told to stop and
+hand off. The refusal quotes the clause from `agents/intern-engineer.md` and names the
+HANDOFF trigger to use.
+
+It binds to the agent by name, so it applies when the intern runs as a subagent or through
+`claude --agent`. A main session told to "act as the intern" is not the intern as far as a
+hook can tell. It reads paths, not intent: it errs toward escalating, and the rest of the
+ceiling (inventing requirements, concurrency) still rests on the agent definition. Every
+other agent passes straight through.
+
+**It says where the checklists are.** Agents and skills cite `references/<name>.md`
+relative to the plugin, which is never your project. `hooks/plugin-root.js` adds one line
+naming the install path at session start, and when one of this plugin's subagents starts.
+Without it, an agent looking for the HANDOFF packet finds nothing and improvises one.
+
+The checklists sit outside your project, so the first read of one asks for permission. For
+a run nobody is watching, `/autopilot` included, allow it up front in your settings, with
+the path that session-start line names:
+
+```json
+{ "permissions": { "allow": ["Read(//path/to/agent-dev-team/references/**)"] } }
+```
+
+A denied read is not silent: the agent says it could not open the checklist, and then
+improvises the packet.
+
+Each matched tool call starts a short Node process: about 50 ms, or 65 ms when the caller
+is the intern and the hook snapshots the working tree.
+
+Copy mode installs no hooks. To enforce the ceiling there, add this to
+`~/.claude/settings.json`, pointing at your checkout:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{ "matcher": "Edit|Write|NotebookEdit|Bash", "hooks": [{ "type": "command", "command": "node /path/to/agent-dev-team/hooks/intern-ceiling.js" }] }],
+    "PostToolUse": [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "node /path/to/agent-dev-team/hooks/intern-ceiling.js" }] }],
+    "PostToolUseFailure": [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "node /path/to/agent-dev-team/hooks/intern-ceiling.js" }] }]
+  }
+}
+```
+
 Note: this repository ships a `systematic-debugging` skill, as does the Superpowers plugin.
 Under plugin install they are namespaced apart. Under `--mode copy` ours is `adt-` prefixed.
 Neither shadows the other.

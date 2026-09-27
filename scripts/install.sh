@@ -109,6 +109,7 @@ install_copy() {
   ok "$count skills -> $CLAUDE_HOME/skills (prefixed $PREFIX)"
   ok "$agents agents -> $CLAUDE_HOME/agents"
   warn "Agent names are not prefixed. An agent of yours with one of these names is overwritten."
+  warn "The intern ceiling hook runs only in plugin mode. docs/tool-setup.md shows how to add it to settings.json by hand."
 }
 
 uninstall_copy() {

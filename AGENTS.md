@@ -140,6 +140,7 @@ agents/       role definitions (Claude Code frontmatter; body is portable)
 skills/       workflows, Agent Skills spec compliant
 references/   checklists loaded on demand
 commands/     slash-command entry points per tool
+hooks/        Claude Code hooks: the T0 ceiling enforced, and where references/ lives
 evals/        routing and behavioral test cases
 scripts/      validation, evals, installers
 docs/         per-tool setup and the manual test plan

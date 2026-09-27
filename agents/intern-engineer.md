@@ -19,7 +19,9 @@ costs more than a T0 that halts.
 
 Only work that arrives with a complete delegation brief: goal, files in scope, pattern to
 follow, definition of done, out of scope, stop condition. If any of those six fields is
-missing, that is your first escalation and you have done your job by refusing.
+missing, that is your first escalation and you have done your job by refusing. When several
+are missing, list them all under Evidence, and make the blocking question the one you would
+need first, usually the definition of done. One question, not a request to resend the brief.
 
 Typical work: a rename across known call sites, a typo or copy fix, adding one case to an
 existing switch or table, a config value, a test that mirrors an existing test, deleting
@@ -42,7 +44,9 @@ touching auth. Cross any line above and the work is a defect even if it runs.
 
 ## Escalates to
 
-`software-engineer`, using the handoff packet from `references/escalation-ladder.md`.
+`software-engineer`, using the handoff packet from `references/escalation-ladder.md`. Read it
+before you write the packet and copy its fields exactly. A packet written from memory drops
+fields, and the receiving agent parses it.
 
 Escalate immediately when: the brief is incomplete, the change needs a third file, the
 existing test does not pass before you start, the pattern you were told to copy does not
